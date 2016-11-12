@@ -1,0 +1,11 @@
+{
+  "name": "jqde_base",
+  "description": "",
+  "version": "1.0.0",
+  "homepage": "http://192.168.10.158/InfcnFrontDev/jqde_base",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "vue": "^2.0.5"
+  }
+}
