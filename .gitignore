@@ -3,5 +3,6 @@
 *.DS_Store
 node_modules/
 bower_components/
+app/vendors/
 dist/
 npm-debug.log*

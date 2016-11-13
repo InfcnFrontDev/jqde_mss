@@ -93,16 +93,17 @@ function checkURL() {
     // Do this if url exists (for page refresh, etc...)
     if (url) {
         // remove all active class
+        if($('.nav li.active').attr('href') != url){
+            $('.nav li.active').parents('li').removeClass("active");
+            $('.nav li.active').parents('li').removeClass("open");
+            $('.nav li.active').parents('li .submenu').slideUp();
+        }
         $('.nav li.active').removeClass("active");
-        // match the url and add the active class
-        $('.nav li:has(a[href="' + url + '"])')
-            .addClass("active");
-        title = ($('.nav a[href="' + url + '"]')
-            .attr('title'))
 
-        // change page title from global var
-        document.title = (title || document.title);
-        //console.log("page title: " + document.title);
+        // match the url and add the active class
+        $('.nav li:has(a[href="' + url + '"])').addClass("active");
+        $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("active");
+        $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("open");
 
         // parse url to jquery
         loadURL(url, container);
@@ -115,14 +116,11 @@ function checkURL() {
         window.location.hash = $this.attr('href');
 
     }
-
 }
 
 // LOAD AJAX PAGES
 
 function loadURL(url, container) {
-    //console.log(container)
-
     $.ajax({
         type: "GET",
         url: url,
@@ -150,8 +148,6 @@ function loadURL(url, container) {
         },
         async: false
     });
-
-    //console.log("ajax request sent");
 }
 
 // UPDATE BREADCRUMB
@@ -177,3 +173,58 @@ function drawBreadCrumb() {
 }
 
 /* ~ END: APP AJAX REQUEST SETUP */
+
+
+var vm_sidebar = new Vue({
+    el: '#sidebar',
+    data: function () {
+        return {
+            menus: []
+        }
+    },
+    mounted: function () {
+        this.fetchData();
+    },
+    methods: {
+        fetchData: function () {
+            var $this = this;
+            JqdeMods.ajax('JqdeProfiles', 'getCurrentProfiles').then(function (result) {
+                if (result.success) {
+                    $this.render(result);
+                }
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        render: function (result) {
+            var menus = [], menuMap = {};
+            for (var i in result.services) {
+                var service = result.services[i];
+                if (!menuMap[service.folder]) {
+                    var moduleMenu = {
+                        name: service.folder,
+                        submenus: []
+                    };
+                    menus.push(moduleMenu);
+                    menuMap[service.folder] = moduleMenu;
+                }
+
+                var serviceMenu = {
+                    name: service.serviceName,
+                    url: service.serviceId
+                };
+                menuMap[service.folder].submenus.push(serviceMenu);
+            }
+
+            this.menus = menus;
+
+            setTimeout(function () {
+                checkURL();
+            }, 200);
+        },
+        openUrl: function (url) {
+            event.preventDefault();
+            window.location.hash = url;
+        }
+    }
+})
