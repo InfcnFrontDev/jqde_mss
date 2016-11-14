@@ -37,3 +37,39 @@ Mock.mock(/action\=JqdeProfiles\&verb\=getCurrentProfiles/, {
     "userName": "INFCN",
     "userId": "root"
 });
+
+
+Mock.mock(/action\=qdeAdmin\&verb\=getAllAdmins/, {
+    "total": 3,
+    "success": true,
+    "rows": [{
+        "department": "",
+        "email": "",
+        "enabled": true,
+        "name": "INFCN",
+        "password": "*2DC1D65FA18258BAD3F3E9108C7FE57B970EB58B",
+        "phone": "",
+        "sex": "M",
+        "userId": "admin"
+    }, {
+        "createDate": "2013-05-07 08:54:46.0",
+        "department": "",
+        "email": "infcn@infcn.com.cn",
+        "enabled": true,
+        "name": "INFCN",
+        "password": "*E6CC90B878B948C35E92B003C792C46C58C4AF40",
+        "phone": "3333",
+        "sex": "M",
+        "userId": "root"
+    }, {
+        "createDate": "2016-05-03 00:07:57.0",
+        "department": "",
+        "email": "",
+        "enabled": true,
+        "name": "test",
+        "password": "123456",
+        "phone": "",
+        "sex": "M",
+        "userId": "test"
+    }]
+});

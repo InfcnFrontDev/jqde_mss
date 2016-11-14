@@ -106,7 +106,7 @@ function checkURL() {
         $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenus').slideUp();
 
         // parse url to jquery
-        loadURL(url, container);
+        loadURL('qdeMods/' + url, container);
     } else {
 
         // grab the first URL from nav
