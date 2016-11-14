@@ -91,19 +91,19 @@ function checkURL() {
 
     container = $('#content');
     // Do this if url exists (for page refresh, etc...)
+
+    console.log(url);
+
     if (url) {
         // remove all active class
-        if($('.nav li.active').attr('href') != url){
-            $('.nav li.active').parents('li').removeClass("active");
-            $('.nav li.active').parents('li').removeClass("open");
-            $('.nav li.active').parents('li .submenu').slideUp();
-        }
         $('.nav li.active').removeClass("active");
+        $('.nav li.open').removeClass("open");
 
         // match the url and add the active class
         $('.nav li:has(a[href="' + url + '"])').addClass("active");
         $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("active");
         $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("open");
+        $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenus').slideUp();
 
         // parse url to jquery
         loadURL(url, container);
@@ -177,10 +177,8 @@ function drawBreadCrumb() {
 
 var vm_sidebar = new Vue({
     el: '#sidebar',
-    data: function () {
-        return {
-            menus: []
-        }
+    data: {
+        menus: []
     },
     mounted: function () {
         this.fetchData();
