@@ -1,4 +1,36 @@
-<p>
-    qdeAdmin
-</p>
-<script src="qdeMods/qdeAdmin/main.js"></script>
+<form class="form-horizontal" role="form" id="vmApp">
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 参数</label>
+        <div class="col-sm-9" style="line-height:34px; padding-left:20px;">
+            值
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> 系统环境-{{menus.length}}个参数</label>
+        <div class="col-sm-9">
+
+        </div>
+    </div>
+    <div class="form-group" v-for="item in menus">
+        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> {{item.name}}</label>
+        <div class="col-sm-9">
+            <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-5" :value="item.value"/>
+        </div>
+    </div>
+    <div class="clearfix form-actions">
+        <div class="col-md-offset-3 col-md-9">
+
+            <button class="btn btn-info" type="reset">
+                <i class="ace-icon fa fa-undo bigger-110"></i>
+                刷新
+            </button>
+            <button class="btn" type="button" style="margin-left:10px;">
+                <i class="ace-icon fa fa-check bigger-110"></i>
+                关闭
+            </button>
+
+        </div>
+    </div>
+
+</form>
+<script src="qdeMods/qdeReports/main.js"></script>
