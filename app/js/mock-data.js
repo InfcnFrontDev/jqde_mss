@@ -73,3 +73,95 @@ Mock.mock(/action\=qdeAdmin\&verb\=getAllAdmins/, {
         "userId": "test"
     }]
 });
+
+Mock.mock(/action\=modulesMgr\&verb\=getAllMoudles/, {
+    "success": true,
+    "rows": [{
+        "sortNo": "",
+        "folder": "系统管理",
+        "host": "",
+        "serviceId": "qdeAdmin",
+        "serviceName": "管理员管理"
+    }, {"sortNo": "", "folder": "系统管理", "host": "", "serviceId": "coreMon", "serviceName": "服务器动态监控"}, {
+        "sortNo": "",
+        "folder": "系统管理",
+        "host": "",
+        "serviceId": "modulesMgr",
+        "serviceName": "模块管理"
+    }, {"sortNo": "", "folder": "系统管理", "host": "", "serviceId": "qdeOptions", "serviceName": "系统参数设置"}, {
+        "sortNo": "",
+        "folder": "系统管理",
+        "host": "",
+        "serviceId": "qdeReports",
+        "serviceName": "系统状态报告"
+    }, {"sortNo": "", "folder": "词表管理", "host": "", "serviceId": "dictCenterMgr", "serviceName": "词表管理"}, {
+        "sortNo": "",
+        "folder": "数据清洗",
+        "host": "",
+        "serviceId": "etlWorkerMgr",
+        "serviceName": "数据清洗"
+    }, {
+        "sortNo": "",
+        "folder": "元数据库管理",
+        "host": "",
+        "serviceId": "mssSqlAction",
+        "serviceName": "Sql查询"
+    }, {
+        "sortNo": "",
+        "folder": "元数据库管理",
+        "host": "",
+        "serviceId": "mssTableAction",
+        "serviceName": "库表管理"
+    }, {
+        "sortNo": "",
+        "folder": "发布管理",
+        "host": "",
+        "serviceId": "pmpSectionAction",
+        "serviceName": "栏目管理"
+    }, {"sortNo": "", "folder": "发布管理", "host": "", "serviceId": "pmpSiteAction", "serviceName": "站点管理"}]
+});
+Mock.mock(/action\=qdeOptions\&verb\=getAllOptions/,
+    {
+        "total": 4,
+        "success": true,
+        "rows": [{
+            "editor": "text",
+            "name": "API接口连接",
+            "category": "系统设置",
+            "value": "192.168.10.9",
+            "key": "api_url"
+        }, {
+            "editor": {"type": "numberbox"},
+            "name": "API接口端口号",
+            "category": "系统设置",
+            "value": "9095",
+            "key": "api_port"
+        }, {
+            "editor": "text",
+            "name": "sql接口",
+            "category": "系统设置",
+            "value": "192.168.10.9:9200",
+            "key": "search_host"
+        }, {"editor": "text", "name": "用户名", "category": "注册信息", "value": "图书馆", "key": "license.user"}]
+    });
+Mock.mock(/action\=qdeReports\&verb\=getReports/,
+    {
+        "success": true,
+        "rows": [{
+            "category": "系统环境",
+            "key": "操作系统",
+            "value": "Linux V3.10.0-327.10.1.el7.x86_64 amd64 (unknown)"
+        }, {"category": "系统环境", "key": "中央处理器", "value": "12个CPU；1900 MHz"}, {
+            "category": "系统环境",
+            "key": "物理内存",
+            "value": "空闲437M；总内存128662M"
+        }, {"category": "系统环境", "key": "QDE版本", "value": "QDE V4.0.18"}, {
+            "category": "系统环境",
+            "key": "JRE信息",
+            "value": "版本1.8.0_45；路径/opt/jdk1.8.0_45/jre"
+        }, {"category": "系统环境", "key": "Java虚拟机内存", "value": "空闲2128M；总内存2625M；最大内存 27305M"}, {
+            "category": "系统环境",
+            "key": "JVM线程数",
+            "value": "31"
+        }]
+    });
