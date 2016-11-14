@@ -1,16 +1,16 @@
-# jqde_base
+# jqde_mss
 
 ---
 ##### Introduction
 
-> jqde_base
+> jqde_mss
 
 ---
 ##### Build Setup
 
 ``` bash
 # clone repo
-git clone http://192.168.10.158/InfcnFrontDev/jqde_base.git
+git clone http://192.168.10.158/InfcnFrontDev/jqde_mss.git
 
 # install dependencies
 npm install

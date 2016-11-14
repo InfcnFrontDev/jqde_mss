@@ -1,8 +1,8 @@
 {
-  "name": "jqde_base",
+  "name": "jqde_mss",
   "description": "",
   "version": "1.0.0",
-  "homepage": "http://192.168.10.158/InfcnFrontDev/jqde_base",
+  "homepage": "http://192.168.10.158/InfcnFrontDev/jqde_mss",
   "license": "MIT",
   "private": true,
   "dependencies": {
