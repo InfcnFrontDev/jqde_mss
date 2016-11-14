@@ -44,39 +44,6 @@ function loadScript(scriptName, callback) {
  * updates naivgation elements to active
  */
 
-// fire this on page load if nav exists
-if ($('.nav').length) {
-    checkURL();
-}
-
-$('.nav a[href!="#"]').click(function (e) {
-    console.log(e);
-    e.preventDefault();
-    $this = $(this);
-
-    window.location.hash = 'ajax/' + $this.attr('href');
-});
-
-// fire links with targets on different window
-$('.nav a[target="_blank"]').click(function (e) {
-    e.preventDefault();
-    $this = $(this);
-
-    window.open($this.attr('href'));
-});
-
-// fire links with targets on same window
-$('.nav a[target="_top"]').click(function (e) {
-    e.preventDefault();
-    $this = $(this);
-
-    window.location = ($this.attr('href'));
-});
-
-// all links with hash tags are ignored
-$('.nav a[href="#"]').click(function (e) {
-    e.preventDefault();
-});
 
 // DO on hash change
 $(window).on('hashchange', function () {
@@ -92,8 +59,6 @@ function checkURL() {
     container = $('#content');
     // Do this if url exists (for page refresh, etc...)
 
-    console.log(url);
-
     if (url) {
         // remove all active class
         $('.nav li.active').removeClass("active");
@@ -101,9 +66,8 @@ function checkURL() {
 
         // match the url and add the active class
         $('.nav li:has(a[href="' + url + '"])').addClass("active");
-        $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("active");
-        $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("open");
-        $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenus').slideUp();
+        $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("active").addClass("open");
+        $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
 
         // parse url to jquery
         loadURL('qdeMods/' + url, container);
@@ -153,14 +117,14 @@ function loadURL(url, container) {
 // UPDATE BREADCRUMB
 function drawBreadCrumb() {
 
-    $("#ribbon ol.breadcrumb")
+    $("#breadcrumbs ul.breadcrumb")
         .empty();
-    $("#ribbon ol.breadcrumb")
-        .append($("<li>Home</li>"));
-    $('nav li.active > a')
+    $("#breadcrumbs ul.breadcrumb")
+        .append($('<li><i class="ace-icon fa fa-home home-icon"></i> 首页 </li>'));
+    $('.nav li.active > a')
         .each(function () {
-            $("#ribbon ol.breadcrumb")
-                .append($("<li></li>")
+            $("#breadcrumbs ul.breadcrumb")
+                .append($("<li>111</li>")
                     .html($.trim($(this)
                         .clone()
                         .children(".badge")
@@ -175,10 +139,18 @@ function drawBreadCrumb() {
 /* ~ END: APP AJAX REQUEST SETUP */
 
 
-var vm_sidebar = new Vue({
-    el: '#sidebar',
+Vue.config.debug = Config.debug;
+Vue.config.devtools = Config.devtools;
+Vue.config.silent = Config.silent;
+
+
+var vm = new Vue({
+    el: '#app',
     data: {
-        menus: []
+        userId: 'root',
+        userName: 'INFCN',
+        menus: [],
+        iconCls: ['fa-desktop', 'fa-list', 'fa-pencil-square-o', 'fa-list-alt', 'fa-calendar', 'fa-picture-o', 'fa-tag']
     },
     mounted: function () {
         this.fetchData();
@@ -186,15 +158,14 @@ var vm_sidebar = new Vue({
     methods: {
         fetchData: function () {
             var $this = this;
-            JqdeMods.ajax('JqdeProfiles', 'getCurrentProfiles').then(function (result) {
+            JqdeProfiles.getCurrentProfiles().then(function (result) {
                 if (result.success) {
                     $this.render(result);
                 }
-            }, function (error) {
-                console.log(error);
             });
         },
         render: function (result) {
+            console.log(result);
             var menus = [], menuMap = {};
             for (var i in result.services) {
                 var service = result.services[i];
@@ -215,14 +186,44 @@ var vm_sidebar = new Vue({
             }
 
             this.menus = menus;
+            this.userId = result.userId;
+            this.userName = result.userName;
 
+
+            var $this = this;
             setTimeout(function () {
-                checkURL();
+                $this.init();
             }, 200);
         },
-        openUrl: function (url) {
-            event.preventDefault();
-            window.location.hash = url;
+        init: function () {
+
+            // fire this on page load if nav exists
+            if ($('.nav').length) {
+                checkURL();
+            }
+
+            $('.nav a[href!="#"]').click(function (e) {
+                e.preventDefault();
+                $this = $(this);
+
+                window.location.hash = $this.attr('href');
+            });
+
+            // fire links with targets on different window
+            $('.nav a[target="_blank"]').click(function (e) {
+                e.preventDefault();
+                $this = $(this);
+
+                window.open($this.attr('href'));
+            });
+
+            // all links with hash tags are ignored
+            $('.nav a[href="#"]').click(function (e) {
+                e.preventDefault();
+                $this = $(this);
+                if($this.parents('.menu-min').length == 0)
+                    $this.parent().find('.submenu').slideToggle();
+            });
         }
     }
-})
+});

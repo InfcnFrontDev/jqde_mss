@@ -1,13 +1,30 @@
-<div id="vmApp">
-    <ul>
-        <li v-for="menu in menus">
-            {{menu.name}}
-            <ul>
-                <li v-for="submenu in menu.submenus">
-                    {{submenu.name}}
-                </li>
-            </ul>
-        </li>
-    </ul>
+<div id="vmApp" class="row">
+    <div class="col-xs-4">
+        用户ID：{{userId}}
+        <br>
+        用户名：{{userName}}
+    </div>
+    <div class="col-xs-4">
+        <ul>
+            <li v-for="menu in menus">
+                {{menu.name}}
+                <ul>
+                    <li v-for="submenu in menu.submenus">
+                        {{submenu.name}}
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="col-xs-4">
+        <ul>
+            <li v-for="icon in iconCls">
+                <a href="#">
+                    <i :class="'menu-icon fa ' + icon"></i>
+                    <span class="menu-text"> {{icon}} </span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 <script src="qdeMods/home/main.js"></script>

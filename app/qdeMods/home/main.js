@@ -1,7 +1,10 @@
 var vmApp = new Vue({
     el: '#vmApp',
     data: {
-        menus: []
+        userId: 'root',
+        userName: 'INFCN',
+        menus: [],
+        iconCls: ['fa-desktop', 'fa-list', 'fa-pencil-square-o', 'fa-list-alt', 'fa-calendar', 'fa-picture-o', 'fa-tag']
     },
     mounted: function () {
         this.fetchData();
@@ -9,15 +12,14 @@ var vmApp = new Vue({
     methods: {
         fetchData: function () {
             var $this = this;
-            JqdeMods.ajax('JqdeProfiles', 'getCurrentProfiles').then(function (result) {
+            JqdeProfiles.getCurrentProfiles().then(function (result) {
                 if (result.success) {
                     $this.render(result);
                 }
-            }, function (error) {
-                console.log(error);
             });
         },
         render: function (result) {
+            console.log(result);
             var menus = [], menuMap = {};
             for (var i in result.services) {
                 var service = result.services[i];
@@ -38,6 +40,8 @@ var vmApp = new Vue({
             }
 
             this.menus = menus;
+            this.userId = result.userId;
+            this.userName = result.userName;
         }
     }
-})
+});

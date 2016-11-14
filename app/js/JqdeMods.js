@@ -1,4 +1,10 @@
 var $ajax = function (url, success, error) {
+
+    // Vue.http.get(url).then(function (response) {
+    //     console.log("vue.http");
+    //     console.log(response);
+    // });
+
     $.ajax({
         url: url,
         cache: false,
@@ -26,9 +32,12 @@ var newPromise = function (action, verb) {
 }
 
 var JqdeMods = {
-
     ajax: function (action, verb) {
         return newPromise(action, verb);
     }
-
-}
+};
+var JqdeProfiles = {
+    getCurrentProfiles: function () {
+        return newPromise('JqdeProfiles', 'getCurrentProfiles');
+    }
+};

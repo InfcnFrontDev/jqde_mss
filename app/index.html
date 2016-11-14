@@ -44,7 +44,7 @@
 	</head>
 
 	<body class="no-skin">
-
+	<div id="app">
 		<div id="navbar" class="navbar navbar-default ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
@@ -328,7 +328,7 @@
 								<img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									Jason
+									{{userId}}
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -406,17 +406,17 @@
 
 				<ul class="nav nav-list">
 					<li class="active">
-						<a href="home" @click="openUrl('home')">
+						<a href="home">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text"> 首页 </span>
+							<span class="menu-text"> 概览 </span>
 						</a>
 
 						<b class="arrow"></b>
 					</li>
 
-					<li class="" v-for="menu in menus">
-						<a href="#" class="dropdown-toggle">
-							<i class="menu-icon fa fa-list"></i>
+					<li class="" v-for="(menu, index) in menus">
+						<a href="#">
+							<i :class="'menu-icon fa ' + iconCls[index]"></i>
 							<span class="menu-text"> {{menu.name}} </span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -426,7 +426,7 @@
 
 						<ul class="submenu">
 							<li class="" v-for="submenu in menu.submenus">
-								<a :href="submenu.url" @click="openUrl(submenu.url)">
+								<a :href="submenu.url">
 									<i class="menu-icon fa fa-caret-right"></i>
 									{{submenu.name}}
 								</a>
@@ -449,13 +449,8 @@
 						<ul class="breadcrumb">
 							<li>
 								<i class="ace-icon fa fa-home home-icon"></i>
-								<a href="#">Home</a>
+								首页
 							</li>
-
-							<li>
-								<a href="#">Other Pages</a>
-							</li>
-							<li class="active">Blank Page</li>
 						</ul><!-- /.breadcrumb -->
 
 						<div class="nav-search" id="nav-search">
@@ -469,73 +464,6 @@
 					</div>
 
 					<div class="page-content">
-						<div class="ace-settings-container" id="ace-settings-container">
-							<div class="btn btn-app btn-xs btn-warning ace-settings-btn" id="ace-settings-btn">
-								<i class="ace-icon fa fa-cog bigger-130"></i>
-							</div>
-
-							<div class="ace-settings-box clearfix" id="ace-settings-box">
-								<div class="pull-left width-50">
-									<div class="ace-settings-item">
-										<div class="pull-left">
-											<select id="skin-colorpicker" class="hide">
-												<option data-skin="no-skin" value="#438EB9">#438EB9</option>
-												<option data-skin="skin-1" value="#222A2D">#222A2D</option>
-												<option data-skin="skin-2" value="#C6487E">#C6487E</option>
-												<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>
-											</select>
-										</div>
-										<span>&nbsp; Choose Skin</span>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-navbar" autocomplete="off" />
-										<label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-sidebar" autocomplete="off" />
-										<label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-breadcrumbs" autocomplete="off" />
-										<label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" autocomplete="off" />
-										<label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-add-container" autocomplete="off" />
-										<label class="lbl" for="ace-settings-add-container">
-											Inside
-											<b>.container</b>
-										</label>
-									</div>
-								</div><!-- /.pull-left -->
-
-								<div class="pull-left width-50">
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" autocomplete="off" />
-										<label class="lbl" for="ace-settings-hover"> Submenu on Hover</label>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" autocomplete="off" />
-										<label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
-									</div>
-
-									<div class="ace-settings-item">
-										<input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-highlight" autocomplete="off" />
-										<label class="lbl" for="ace-settings-highlight"> Alt. Active Item</label>
-									</div>
-								</div><!-- /.pull-left -->
-							</div><!-- /.ace-settings-box -->
-						</div><!-- /.ace-settings-container -->
-
 						<div class="row">
 							<div id="content" class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
@@ -551,8 +479,8 @@
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							<span class="blue bolder">Ace</span>
-							Application &copy; 2013-2014
+							<span class="blue bolder">Infcn</span>
+							Application &copy; 2014-2016
 						</span>
 
 						&nbsp; &nbsp;
@@ -577,7 +505,7 @@
 				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 			</a>
 		</div><!-- /.main-container -->
-
+	</div>
 		<!-- basic scripts -->
 
 		<!--[if !IE]> -->
@@ -607,6 +535,6 @@
 
 		<script src="js/config.js"></script>
 		<script src="js/JqdeMods.js"></script>
-		<script src="js/app.js"></script>
+		<script src="js/index.js"></script>
 	</body>
 </html>
