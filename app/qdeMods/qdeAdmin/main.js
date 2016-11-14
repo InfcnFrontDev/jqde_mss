@@ -1,7 +1,9 @@
 var vmApp = new Vue({
     el: '#vmApp',
     data: {
-        menus: []
+        home:[],
+        checkedall:false,
+        checked:false,
     },
     mounted: function () {
         this.fetchData();
@@ -9,35 +11,35 @@ var vmApp = new Vue({
     methods: {
         fetchData: function () {
             var $this = this;
-            JqdeMods.ajax('JqdeProfiles', 'getCurrentProfiles').then(function (result) {
+            JqdeMods.ajax('qdeAdmin', 'getAllAdmins').then(function (result) {
                 if (result.success) {
                     $this.render(result);
                 }
             }, function (error) {
-                console.log(error);
+
             });
         },
+        checked:function(){
+            //点击控制checked 和checkedall的切换
+        },
         render: function (result) {
-            var menus = [], menuMap = {};
-            for (var i in result.services) {
-                var service = result.services[i];
-                if (!menuMap[service.folder]) {
-                    var moduleMenu = {
-                        name: service.folder,
-                        submenus: []
-                    };
-                    menus.push(moduleMenu);
-                    menuMap[service.folder] = moduleMenu;
-                }
 
-                var serviceMenu = {
-                    name: service.serviceName,
-                    url: service.serviceId
-                };
-                menuMap[service.folder].submenus.push(serviceMenu);
+            var home=[]
+            for(var i in result.rows){
+                home.push(result.rows[i])
             }
+            this.home=home;
+        },
+        checktrue:function(){
 
-            this.menus = menus;
-        }
+        },
+        checkfalse:function(){
+            var arr=[];
+            console.log(item.urseId)
+            for(var i in item.urseId){
+
+            }
+        },
+
     }
 })
