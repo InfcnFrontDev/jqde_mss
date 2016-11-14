@@ -1,0 +1,13 @@
+<div id="vmApp">
+    <ul>
+        <li v-for="menu in menus">
+            {{menu.name}}
+            <ul>
+                <li v-for="submenu in menu.submenus">
+                    {{submenu.name}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<script src="qdeMods/qdeAdmin/main.js"></script>
