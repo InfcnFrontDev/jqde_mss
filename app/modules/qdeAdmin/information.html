@@ -1,0 +1,93 @@
+<div class="tabbable">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="active">
+            <a data-toggle="tab" href="#home">
+                <i class="green ace-icon fa fa-home bigger-120"></i>
+                基本信息
+            </a>
+        </li>
+
+        <li>
+            <a data-toggle="tab" href="#messages">
+                权限设置
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <div class="row">
+                <div class="col-xs-12">
+                    <!-- PAGE CONTENT BEGINS -->
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-user"> 用户ID：</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-user" placeholder="Username" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-password"> 密码： </label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-password" placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-name"> 用户姓名： </label>
+
+                            <div class="col-sm-9">
+                                <input type="password" id="form-field-name" placeholder="Name"   />
+                                <!--<span class="help-inline col-xs-12 col-sm-7">
+												<span class="middle">Inline help text</span>
+											</span>-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-sex"> 用户性别：</label>
+
+                            <div class="col-sm-9">
+                                <input type="radio" id="form-field-man" placeholder="Username" />男
+                                <input type="radio" id="form-field-wuman" placeholder="Username"  />女
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-phone"> 手机：</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-phone" placeholder="Username" class="form-control"  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-email"> Email：</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-email" placeholder="Email" class="form-control"  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-department"> 单位：</label>
+
+                            <div class="col-sm-9">
+                                <input type="text" id="form-field-department" placeholder="Department" class="form-control" />
+                            </div>
+                        </div>
+                    </form>
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div>
+
+        <div id="messages" class="tab-pane fade">
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+        </div>
+    </div>
+</div>
+<script>
+
+    $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        //if($(e.target).attr('href') == "#home") doSomethingNow();
+    })
+
+</script>
