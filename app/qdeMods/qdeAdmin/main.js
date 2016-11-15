@@ -4,9 +4,29 @@ var vmApp = new Vue({
         home:[],
         checkedall:false,
         checked:false,
+
     },
     mounted: function () {
         this.fetchData();
+        jQuery(function($) {
+        var html=$('#jiben').html();
+            $("#bootbox-confirm").on(ace.click_event, function() {
+                bootbox.dialog({
+                    message: html,
+                    title:"<span class='bigger-110'>添加管理员</span>" ,
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> 取消'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> 保存'
+                        }
+
+                    }
+
+                })
+            })
+        });
     },
     methods: {
         fetchData: function () {
@@ -20,7 +40,14 @@ var vmApp = new Vue({
             });
         },
         checked:function(){
-            //点击控制checked 和checkedall的切换
+            if(this.checkedall==false){
+                this.checkedall=true;
+                this.checked=true;
+            }else{
+
+            }
+
+
         },
         render: function (result) {
 
@@ -29,17 +56,8 @@ var vmApp = new Vue({
                 home.push(result.rows[i])
             }
             this.home=home;
-        },
-        checktrue:function(){
+        }
 
-        },
-        checkfalse:function(){
-            var arr=[];
-            console.log(item.urseId)
-            for(var i in item.urseId){
-
-            }
-        },
 
     }
 })

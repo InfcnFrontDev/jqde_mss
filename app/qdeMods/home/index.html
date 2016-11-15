@@ -1,9 +1,25 @@
-<div id="vmApp" class="row">
-    <div class="col-xs-4">
-        用户ID：{{userId}}
-        <br>
-        用户名：{{userName}}
+<div id="vmApp">
+    <div class="page-header">
+        <h1>
+            Welcome , {{userName}} !
+        </h1>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="header smaller lighter green">系统模块</h3>
+
+            <!--<button class="btn btn-app btn-success">-->
+                <!--<i class="ace-icon fa fa-undo bigger-230"></i>-->
+                <!--管理员管理-->
+            <!--</button>-->
+
+        </div>
+    </div>
+
+    <div class="space"></div>
+
+
     <div class="col-xs-4">
         <ul>
             <li v-for="menu in menus">
@@ -26,5 +42,7 @@
             </li>
         </ul>
     </div>
+
+
 </div>
 <script src="qdeMods/home/main.js"></script>
