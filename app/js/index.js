@@ -44,6 +44,7 @@ function loadScript(scriptName, callback) {
  * updates naivgation elements to active
  */
 
+var modulePath = '';
 
 // DO on hash change
 $(window).on('hashchange', function () {
@@ -70,7 +71,8 @@ function checkURL() {
         $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
 
         // parse url to jquery
-        loadURL('modules/' + url, container);
+        modulePath = 'modules/' + url;
+        loadURL(modulePath + '/index.html', container);
     } else {
 
         // grab the first URL from nav
@@ -165,7 +167,6 @@ var vm = new Vue({
             });
         },
         render: function (result) {
-            console.log(result);
             var menus = [], menuMap = {};
             for (var i in result.services) {
                 var service = result.services[i];
@@ -221,7 +222,7 @@ var vm = new Vue({
             $('.nav a[href="#"]').click(function (e) {
                 e.preventDefault();
                 $this = $(this);
-                if($this.parents('.menu-min').length == 0)
+                if ($this.parents('.menu-min').length == 0)
                     $this.parent().find('.submenu').slideToggle();
             });
         }
