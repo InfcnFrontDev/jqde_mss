@@ -8,11 +8,11 @@ var vmApp = new Vue({
     },
     mounted: function () {
         this.fetchData();
-        jQuery(function($) {
-        var html=$('#jiben').html();
-            $("#bootbox-confirm").on(ace.click_event, function() {
+
+        $("#bootbox-confirm").on(ace.click_event, function() {
+            $.get('modules/qdeAdmin/jiben.html', function (html) {
                 bootbox.dialog({
-                    message: $('#jiben'),
+                    message: html,
                     title:"<span class='bigger-110'>添加管理员</span>" ,
                     buttons: {
                         cancel: {
@@ -27,6 +27,7 @@ var vmApp = new Vue({
                 })
             })
         });
+
     },
     methods: {
         fetchData: function () {
