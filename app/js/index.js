@@ -70,7 +70,7 @@ function checkURL() {
         $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
 
         // parse url to jquery
-        loadURL('qdeMods/' + url, container);
+        loadURL('modules/' + url, container);
     } else {
 
         // grab the first URL from nav

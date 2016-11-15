@@ -12,7 +12,7 @@ var vmApp = new Vue({
         var html=$('#jiben').html();
             $("#bootbox-confirm").on(ace.click_event, function() {
                 bootbox.dialog({
-                    message: html,
+                    message: $('#jiben'),
                     title:"<span class='bigger-110'>添加管理员</span>" ,
                     buttons: {
                         cancel: {
