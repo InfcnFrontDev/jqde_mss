@@ -1,106 +1,74 @@
 <div class="row" id="vmApp">
+      <div class="row">
+            <div class="col-xs-12">
+                  <button class="btn btn-xs btn-success" style="margin-left:20px;"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新</button>
+            </div>
+      </div>
+
+      <div class="space-6"></div>
     <div class="col-xs-12">
-        <table id="simple-table" class="table  table-bordered table-hover">
-            <thead>
-            <tr>
-                <th class="center">
-                    <label class="pos-rel">
-                        <input type="checkbox" class="ace"/>
-                        <span class="lbl"></span>
-                    </label>
-                </th>
-                <th>模块名称</th>
-                <th>模块ID</th>
-                <th>排序号</th>
-                <th class="hidden-480">菜单位置</th>
 
-                <th class="hidden-480">
-                    主机
-                </th>
+          <table id="dynamic-table" class="table table-striped table-bordered table-hover">
+                <thead>
+                <tr>
+                      <th class="center">
+                            <label class="pos-rel">
+                                  <input type="checkbox" class="ace"/>
+                                  <span class="lbl"></span>
+                            </label>
+                      </th>
+                      <th>模块名称</th>
+                      <th>模块ID</th>
+                      <th>排序号</th>
+                      <th class="hidden-480">菜单位置</th>
 
-                <th></th>
-            </tr>
-            </thead>
+                      <th class="hidden-480">
+                            主机
+                      </th>
 
-            <tbody>
-            <tr v-for="item in menus" class="odd">
-                <td class="center">
-                    <label class="pos-rel">
-                        <input type="checkbox" class="ace"/>
-                        <span class="lbl"></span>
-                    </label>
-                </td>
+                      <th></th>
+                </tr>
+                </thead>
 
-                <td class="center">
-                    {{item.serviceName}}
-                </td>
+                <tbody>
+                <tr v-for="item in menus" id="table-li" @dblclick="tankuang(item)">
+                      <td class="center">
+                            <label class="pos-rel">
+                                  <input type="checkbox" class="ace"/>
+                                  <span class="lbl"></span>
+                            </label>
+                      </td>
 
-                <td>
-                    {{item.serviceId}}
-                </td>
-                <td>{{item.folder}}</td>
-                <td class="hidden-480">3,330</td>
-                <td>Feb 12</td>
+                      <td>
+                            {{item.serviceName}}
+                      </td>
 
+                      <td>
+                            {{item.serviceId}}
+                      </td>
+                      <td></td>
+                      <td class="hidden-480">{{item.folder}}</td>
+                      <td>Feb 12</td>
 
-
-                <td>
-                    <div class="hidden-sm hidden-xs btn-group">
-                        <button class="btn btn-xs btn-success">
-                            <i class="ace-icon fa fa-check bigger-120"></i>
-                        </button>
-
-                        <button class="btn btn-xs btn-info">
-                            <i class="ace-icon fa fa-pencil bigger-120"></i>
-                        </button>
-
-                        <button class="btn btn-xs btn-danger">
-                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                        </button>
-
-                        <button class="btn btn-xs btn-warning">
-                            <i class="ace-icon fa fa-flag bigger-120"></i>
-                        </button>
-                    </div>
-
-                    <div class="hidden-md hidden-lg">
-                        <div class="inline pos-rel">
-                            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-                            </button>
-
-                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                <li>
-                                    <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-																			<span class="blue">
-																				<i class="ace-icon fa fa-search-plus bigger-120"></i>
-																			</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-																			<span class="green">
-																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																			</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-																			<span class="red">
-																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																			</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
+                      <td>
+                            <div class="hidden-sm hidden-xs action-buttons">
+                                  <a class="green" href="javascript:;" @click="tankuang(item)">
+                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                  </a>
+                            </div>
+                      </td>
+                </tr>
+                </tbody>
+          </table>
     </div><!-- /.span -->
+
 </div>
+
+
+
+
+
+
+
+
 <script src="qdeMods/modulesMgr/main.js"></script>
