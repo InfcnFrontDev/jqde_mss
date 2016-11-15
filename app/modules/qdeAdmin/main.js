@@ -10,7 +10,7 @@ var vmApp = new Vue({
         this.fetchData();
 
         $("#bootbox-confirm").on(ace.click_event, function() {
-            $.get('modules/qdeAdmin/jiben.html', function (html) {
+            $.get('modules/qdeAdmin/information.html', function (html) {
                 bootbox.dialog({
                     message: html,
                     title:"<span class='bigger-110'>添加管理员</span>" ,
