@@ -2,8 +2,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <button class="btn btn-xs btn-success"><i class="ace-icon fa fa-plus-square bigger-130"></i>添加</button>
-            <button class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-130"></i>修改</button>
+            <button class="btn btn-info" id="bootbox-confirm"><i class="ace-icon fa fa-plus-square bigger-130"></i>添加</button>
             <button class="btn btn-xs btn-warning"><i class="ace-icon fa fa-times bigger-130"></i>删除</button>
             <button class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-130"></i>刷新</button>
         </div>
@@ -32,12 +31,13 @@
                         </th>
                         <th class="hidden-480">邮箱</th>
                         <th>单位</th>
+                        <th>编辑</th>
                         <th>状态</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr v-for="item in home">
+                    <tr v-for="item in home" >
                         <td class="center">
                             <label class="pos-rel">
                                 <input type="checkbox" class="ace checkadmin" v-model="checked"/>
@@ -56,43 +56,19 @@
                         <td>{{item.department}}</td>
                         <td>
                             <div class="hidden-sm hidden-xs action-buttons">
+                                <a class="green" href="#">
+                                    <i class="ace-icon fa fa-pencil  bigger-130"></i>
+                                </a>
                                 <a class="red" href="#">
-                                    <i class="ace-icon fa fa-check green bigger-130"></i>
+                                    <i class="ace-icon fa fa-trash-o  bigger-130"></i>
                                 </a>
                             </div>
-
-                            <div class="hidden-md hidden-lg">
-                                <div class="inline pos-rel">
-                                    <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                        <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                    </button>
-
-                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                        <li>
-                                            <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                                                <span class="blue">
-                                                                                    <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                                                <span class="green">
-                                                                                    <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                                </span>
-                                            </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                <span class="red">
-                                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                        </td>
+                        <td>
+                            <div class="hidden-sm hidden-xs action-buttons">
+                                <a class="green" href="#">
+                                    <i class="ace-icon fa fa-check bigger-130"></i>
+                                </a>
                             </div>
                         </td>
 
@@ -102,8 +78,43 @@
             </div>
         </div>
     </div>
+    <div id="jiben">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home">
+                                <i class="green ace-icon fa fa-home bigger-120"></i>
+                                Home
+                            </a>
+                        </li>
+
+                        <li>
+                            <a data-toggle="tab" href="#messages">
+                                Messages
+                                <span class="badge badge-danger">4</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="home" class="tab-pane fade in active">
+                            <p>Raw denim you probably haven't heard of them jean shorts Austin.</p>
+                        </div>
+
+                        <div id="messages" class="tab-pane fade">
+                            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.col -->
+        </div>
+    </div>
 </div>
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/jquery.dataTables.bootstrap.min.js"></script>
 <script src="assets/js/dataTables.buttons.min.js"></script>
 <script src="qdeMods/qdeAdmin/main.js"></script>
+<script src="assets/js/bootbox.js"></script>
+
