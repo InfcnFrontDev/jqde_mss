@@ -12,7 +12,7 @@ var vmApp = new Vue({
     methods: {
         fetchData: function () {
             var $this = this;
-            JqdeProfiles.getCurrentProfiles().then(function (result) {
+            JqdeMods.ajax('qdeProfiles', 'getCurrentProfiles').then(function (result) {
                 if (result.success) {
                     $this.render(result);
                 }

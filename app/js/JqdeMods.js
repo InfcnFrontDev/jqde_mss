@@ -36,8 +36,3 @@ var JqdeMods = {
         return newPromise(action, verb);
     }
 };
-var JqdeProfiles = {
-    getCurrentProfiles: function () {
-        return newPromise('qdeProfiles', 'getCurrentProfiles');
-    }
-};
