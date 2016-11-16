@@ -3,10 +3,9 @@
  */
 
 var Config = {
-    debug: false,
+    debug: true,
     devtools: false,
     silent: true,
 
-    apiPath: '/mss-web'
-
+    apiPath: 'http://192.168.3.137:8080/mss-web'
 };

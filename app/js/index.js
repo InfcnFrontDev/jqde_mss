@@ -44,8 +44,6 @@ function loadScript(scriptName, callback) {
  * updates naivgation elements to active
  */
 
-var modulePath = '';
-
 // DO on hash change
 $(window).on('hashchange', function () {
     checkURL();
@@ -70,9 +68,10 @@ function checkURL() {
         $('.nav li:has(a[href="' + url + '"])').parents('li').addClass("active").addClass("open");
         $('.nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
 
+        Config.modulePath = 'modules/' + url;
+
         // parse url to jquery
-        modulePath = 'modules/' + url;
-        loadURL(modulePath + '/index.html', container);
+        loadURL(Config.modulePath + '/index.html', container);
     } else {
 
         // grab the first URL from nav
