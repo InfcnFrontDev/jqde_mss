@@ -121,6 +121,7 @@ Mock.mock(/action\=modulesMgr\&verb\=getAllMoudles/, {
     }, {"sortNo": "", "folder": "发布管理", "host": "", "serviceId": "pmpSiteAction", "serviceName": "站点管理"}]
 });
 Mock.mock(/action\=qdeOptions\&verb\=getAllOptions/,
+
     {
         "total": 4,
         "success": true,
@@ -165,3 +166,4 @@ Mock.mock(/action\=qdeReports\&verb\=getReports/,
             "value": "31"
         }]
     });
+

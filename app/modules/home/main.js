@@ -19,7 +19,6 @@ var vmApp = new Vue({
             });
         },
         render: function (result) {
-            console.log(result);
             var menus = [], menuMap = {};
             for (var i in result.services) {
                 var service = result.services[i];

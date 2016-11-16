@@ -1,4 +1,4 @@
-<div class="tabbable">
+<div class="tabbable" id="tankuang">
     <ul class="nav nav-tabs" id="myTab">
         <li class="active">
             <a data-toggle="tab" href="#home">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label no-padding-right" for="form-field-sex"> 用户性别：</label>
+                            <label class="col-sm-3 control-label no-padding-right"> 用户性别：</label>
 
                             <div class="col-sm-9">
                                 <input type="radio" id="form-field-man" placeholder="Username" />男
@@ -80,14 +80,116 @@
         </div>
 
         <div id="messages" class="tab-pane fade">
-            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="nav nav-list">
+                        <li class="" v-for="(menu, index) in menus">
+                            <a href="#">
+                                <i :class="'menu-icon fa ' + iconCls[index]"></i>
+                                <span class="menu-text"> {{menu.name}} </span>
+
+                                <b class="arrow fa fa-angle-down"></b>
+                            </a>
+                            <b class="arrow"></b>
+                            <ul class="submenu">
+                                <li class="" v-for="submenu in menu.submenus">
+                                    <a href="javascript:;">
+                                        <i class="menu-icon fa fa-caret-right"></i>
+                                        {{submenu.name}}<input type="checkbox"><span v-for="privileges in menu.privileges">{{privileges.name}}</span>
+                                    </a>
+                                    <b class="arrow"></b>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul><!-- /.nav-list -->
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 <script>
 
     $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         //if($(e.target).attr('href') == "#home") doSomethingNow();
-    })
+    });
+    var vm = new Vue({
+        el: '#tankuang',
+        data: {
+            userId: 'root',
+            userName: 'INFCN',
+            menus: [],
+            iconCls: ['fa-desktop', 'fa-list', 'fa-pencil-square-o', 'fa-list-alt', 'fa-calendar', 'fa-picture-o', 'fa-tag']
+        },
+        mounted: function () {
+            this.fetchData();
+        },
+        methods: {
+            fetchData: function () {
+                var $this = this;
+                JqdeProfiles.getFreeView().then(function (result) {
+                    if (result.success) {
+                        $this.render(result);
+                    }
+                });
+            },
+            render: function (result) {
+                var menus = [], menuMap = {},privileges={};
+                for (var i in result.all) {
+                    var service = result.all[i];
+                    if (!menuMap[service.folder]) {
+                        var moduleMenu = {
+                            name: service.folder,
+                            submenus: [],
+
+                        };
+                        menus.push(moduleMenu);
+                        menuMap[service.folder] = moduleMenu;
+                    }
+
+                    var serviceMenu = {
+                        name: service.serviceName,
+                        privileges:[],
+                        url: service.serviceId
+                    };
+                    var privilegesMenu={
+                        name: service.privileges
+                    }
+                    serviceMenu.privileges.push(privilegesMenu);
+                    menuMap[service.folder].submenus.push(serviceMenu);
+
+                }
+
+                this.menus = menus;
+                this.userId = result.userId;
+                this.userName = result.userName;
+
+
+                var $this = this;
+                setTimeout(function () {
+                    $this.init();
+                }, 200);
+            },
+            init: function () {
+                // all links with hash tags are ignored
+                $('.nav a[href="#"]').click(function (e) {
+                    e.preventDefault();
+                    $this = $(this);
+                    if ($this.parents('.menu-min').length == 0)
+                        $this.parent().find('.submenu').slideToggle();
+                });
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
 
 </script>
