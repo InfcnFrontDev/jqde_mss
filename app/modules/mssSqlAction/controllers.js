@@ -380,7 +380,7 @@ function updateWithScrollIfNeeded (query) {
 
 
 	function getUrl() {
-		return '/qdeMods/ajax?action=mssSqlAction&verb=query'
+		return Config.apiPath + '/qdeMods/ajax?action=mssSqlAction&verb=query'
 	}
 
 	function saveUrl() {
