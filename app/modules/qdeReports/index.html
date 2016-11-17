@@ -1,41 +1,25 @@
-<form class="form-horizontal" role="form" id="vmApp">
-    <div class="row">
-        <h2 class="col-sm-3 " style="padding:10px 0; font-size:24px; font-weight:900; background: #f9f9f9; color:#707070; text-align:right"> 参数</h2>
-        <h2 class="col-sm-9 " style="padding:10px 0; font-size:24px; font-weight:900; background: #f9f9f9; color:#707070; padding-left:16px;">
-            值
-        </h2>
-    </div>
-    <div class="row">
-        <div class="col-sm-3 control-label no-padding-right" style="font-size:14px;"> 系统环境-{{menus.length}}个参数</div>
-        <div class="col-sm-9">
+<div id="vmApp">
+    <form class="form-horizontal" role="form">
+        <div v-for="group in groups">
+            <h4 class="header green"><i class="ace-icon fa fa-signal"></i>{{group.category}}</h4>
 
-        </div>
-    </div>
-    <div class="space-6"></div>
-    <div class="row">
-        <div class="form-group" v-for="item in menus">
-        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> {{item.name}}</label>
-        <div class="col-sm-9">
-            <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-5" :value="item.value"/>
-        </div>
-    </div>
-    </div>
-    <div class="row">
-        <div class="clearfix form-actions">
-            <div class="col-md-offset-3 col-md-9">
-
-                <button class="btn btn-sm btn-success" type="reset" style="margin-left:10px;">
-                    <i class="ace-icon fa fa-undo bigger-110"></i>
-                    刷新
-                </button>
-                <button class="btn btn-sm btn-danger" type="button" style="margin-left:10px;">
-                    <i class="ace-icon fa fa-check bigger-110"></i>
-                    关闭
-                </button>
-
+            <div class="form-group" v-for="row in group.rows">
+                <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> {{row.key}} </label>
+                <div class="col-sm-9">
+                    <input type="text" id="form-field-1" class="col-xs-10 col-sm-8" :value="row.value"/>
+                </div>
             </div>
         </div>
-    </div>
-
-</form>
+        <div class="row">
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-sm btn-success" type="reset" @click="refresh()">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <script src="modules/qdeReports/main.js"></script>

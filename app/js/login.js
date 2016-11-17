@@ -1,3 +1,7 @@
+/**
+ * login
+ */
+
 jQuery(function($) {
 
     $('#btnLogin').click(function () {

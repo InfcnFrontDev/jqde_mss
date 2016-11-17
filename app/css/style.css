@@ -1,19 +1,13 @@
 .dataTables_wrapper .row:first-child {
-    padding-top: 8px;
     padding-bottom: 8px;
-    background-color: transparent;
-    margin-left: -12px !important;
-    margin-right: -12px !important;
 }
 
 .dataTables_wrapper .dataTables_length {
-    float: left;
     font-size: 13px;
     line-height: 30px;
 }
 
 .dataTables_wrapper .dataTables_info {
-    float: left;
     font-size: 13px;
     line-height: 30px;
 }
@@ -22,16 +16,8 @@
     padding-bottom: 6px;
 }
 
-.dataTables_wrapper .dataTables_filter {
-    text-align: left;
-}
-
-.dataTables_wrapper .dataTables_buttons {
-    text-align: right;
-}
-
 .dataTables_wrapper .dataTables_filter input[type=search] {
-    width: 350px;
+    width: 200px;
     height: 20px;
     line-height: 20px;
 }
