@@ -24,21 +24,21 @@
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-user"> 用户ID：</label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-user" placeholder="Username" />
+                                <input type="text" id="form-field-user" placeholder="Username" v-model="userid"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-password"> 密码： </label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-password" placeholder="Password"/>
+                                <input type="password" id="form-field-password" placeholder="Password" v-model="password"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-name"> 用户姓名： </label>
 
                             <div class="col-sm-9">
-                                <input type="password" id="form-field-name" placeholder="Name"   />
+                                <input type="text" id="form-field-name" placeholder="Name"   v-model="name"/>
                                 <!--<span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle">Inline help text</span>
 											</span>-->
@@ -48,31 +48,49 @@
                             <label class="col-sm-3 control-label no-padding-right"> 用户性别：</label>
 
                             <div class="col-sm-9">
-                                <input type="radio" id="form-field-man" placeholder="Username" />男
-                                <input type="radio" id="form-field-wuman" placeholder="Username"  />女
+                                <input name="sex" type="radio" id="form-field-man" v-model="picked" value="男">
+                                <label for="form-field-man">
+                                    男
+                                </label>
+                                <input type="radio" name="sex"  id="form-field-wuman" v-model="picked" value="女"  />
+                                <label for="form-field-wuman">
+                                    女
+                                </label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-phone"> 手机：</label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-phone" placeholder="Username" class="form-control"  />
+                                <input type="text" id="form-field-phone" placeholder="Username" class="form-control"  v-model="phone"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-email"> Email：</label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-email" placeholder="Email" class="form-control"  />
+                                <input type="text" id="form-field-email" placeholder="Email" class="form-control" v-model="email" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label no-padding-right" for="form-field-department"> 单位：</label>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-department" placeholder="Department" class="form-control" />
+                                <input type="text" id="form-field-department" placeholder="Department" class="form-control" v-model="department"/>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-name"> 状态： </label>
+
+                            <div class="col-xs-3">
+                                <label>
+                                    <input name="switch-field-1" class="ace ace-switch ace-switch-4" type="checkbox" v-model="checked"/>
+                                    <span class="lbl" style="margin-top: 7px;"></span>
+                                </label>
+                            </div>
+
+                        </div>
+
                     </form>
 
                 </div><!-- /.col -->
@@ -91,11 +109,14 @@
                                 <b class="arrow fa fa-angle-down"></b>
                             </a>
                             <b class="arrow"></b>
-                            <ul class="submenu">
+                            <ul class="submenu submenu1">
                                 <li class="" v-for="submenu in menu.submenus">
                                     <a href="javascript:;">
                                         <i class="menu-icon fa fa-caret-right"></i>
-                                        {{submenu.name}}<input type="checkbox"><span v-for="privileges in menu.privileges">{{privileges.name}}</span>
+                                        {{submenu.name}}
+                                        <i class="submenu-privileges">
+                                            <span v-for="privilege in submenu.privileges">{{privilege.name}}<input type="checkbox"></span>
+                                        </i>
                                     </a>
                                     <b class="arrow"></b>
                                 </li>
@@ -114,9 +135,17 @@
     $('#myTab a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         //if($(e.target).attr('href') == "#home") doSomethingNow();
     });
-    var vm = new Vue({
+    var vmadd = new Vue({
         el: '#tankuang',
         data: {
+            checked:true,
+            name:'',
+            phone:'',
+            password:'',
+            department:'',
+            userid:'',
+            email:'',
+            picked:'',
             userId: 'root',
             userName: 'INFCN',
             menus: [],
@@ -146,6 +175,7 @@
                         };
                         menus.push(moduleMenu);
                         menuMap[service.folder] = moduleMenu;
+
                     }
 
                     var serviceMenu = {
@@ -153,10 +183,12 @@
                         privileges:[],
                         url: service.serviceId
                     };
-                    var privilegesMenu={
-                        name: service.privileges
+                    for(var j in service.privileges){
+                        var privilegesMenu={
+                            name: service.privileges[j]
+                        }
+                        serviceMenu.privileges.push(privilegesMenu);
                     }
-                    serviceMenu.privileges.push(privilegesMenu);
                     menuMap[service.folder].submenus.push(serviceMenu);
 
                 }
@@ -165,7 +197,7 @@
                 this.userId = result.userId;
                 this.userName = result.userName;
 
-
+                console.log(menus)
                 var $this = this;
                 setTimeout(function () {
                     $this.init();
@@ -177,7 +209,7 @@
                     e.preventDefault();
                     $this = $(this);
                     if ($this.parents('.menu-min').length == 0)
-                        $this.parent().find('.submenu').slideToggle();
+                        $this.parent().find('.submenu1').slideToggle();
                 });
             }
         }

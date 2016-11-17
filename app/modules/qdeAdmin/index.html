@@ -36,7 +36,7 @@
                     </tr>
                     </thead>
 
-                    <tbody>
+                    <tbody class="infor-tbody">
                     <tr v-for="item in home" >
                         <td class="center">
                             <label class="pos-rel">
@@ -67,7 +67,7 @@
                         <td>
                             <div class="hidden-sm hidden-xs action-buttons">
                                 <a class="green" href="#">
-                                    <i class="ace-icon fa fa-check bigger-130"></i>
+                                    <i :class="item.enabled?'ace-icon fa fa-check bigger-130':'ace-icon  glyphicon glyphicon-remove bigger-130'"></i>
                                 </a>
                             </div>
                         </td>
