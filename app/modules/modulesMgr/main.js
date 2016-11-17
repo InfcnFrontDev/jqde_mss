@@ -40,41 +40,69 @@ var vmApp = new Vue({
                 var moduleMenu = {
                     serviceName: result.rows[i].serviceName,
                     serviceId: result.rows[i].serviceId,
-                    folder: result.rows[i].folder
+                    folder: result.rows[i].folder,
+                    sortNo:result.rows[i].sortNo
                 };
                 menus.push(moduleMenu);
-
             }
             this.menus = menus;
         },
         tankuang: function (item) {
+            var $this=this;
+            $.get('modules/modulesMgr/panel.html',function(html){
 
-            bootbox.dialog({
-                title: "<h4 class='modal-title'>修改模块</h4>",
-                message: "<form class=\"form-horizontal\" role=\"form\" id=\"vmApp\"><div class=\"form-group\"> <label class=\"col-sm-3 control-label no-padding-right\" for=\"form-field-1\">   模块ID  </label><div class=\"col-sm-9\"> <input type=\"text\" id=\"form-field-1-1\" placeholder=\"Username\" class=\"form-control\" value=\"" + item.serviceId + "\"/> </div> </div>" +
-                "<div class=\"form-group\" > <label class=\"col-sm-3 control-label no-padding-right\" for=\"form-field-1\">  模块名称   </label><div class=\"col-sm-9\"> <input type=\"text\" id=\"form-field-1-1\" placeholder=\"Username\" class=\"form-control\" value=\"" + item.serviceName + "\"/> </div> </div>" +
-                "<div class=\"form-group\" > <label class=\"col-sm-3 control-label no-padding-right\" for=\"form-field-1\">    菜单位置 </label><div class=\"col-sm-9\"> <input type=\"text\" id=\"form-field-1-1\" placeholder=\"Username\" class=\"form-control\" value=\"" + item.folder + "\"/> </div> </div>" +
-                "<div class=\"form-group\" > <label class=\"col-sm-3 control-label no-padding-right\" for=\"form-field-1\">  顺序号(三位)   </label><div class=\"col-sm-9\"> <input type=\"text\" id=\"form-field-1-1\" placeholder=\"Username\" class=\"form-control\" value=\"\"/> </div> </div> " +
-                "</form>",
-
-
-                buttons: {
-                    "保存": {
-                        "label": "<i class='ace-icon fa fa-floppy-o'></i> 保存",
-                        "className": "btn-sm",
-                        "callback": function () {
-                            //Example.show("great success");
+                bootbox.dialog({
+                    title: "<h4 class='modal-title'>修改模块</h4>",
+                    message: html,
+                    buttons: {
+                        "保存": {
+                            "label": "<i class='ace-icon fa fa-floppy-o'></i> 保存",
+                            "className": "btn-sm",
+                            "callback": function () {
+                                //Example.show("great success");
+                                for (var i in $this.menus) {
+                                    var text = document.getElementsByClassName('form-control');
+                                    if ($this.menus[i].serviceName == panelApp.item.serviceName) {
+                                        $this.menus[i].serviceName = text[1].value
+                                        $this.menus[i].serviceId = text[0].value
+                                        $this.menus[i].folder = text[2].value
+                                        $this.menus[i].sortNo = text[3].value
+                                    }
+                                }
+                                $.gritter.add({
+                                    text: '模块信息保存成功！',
+                                    class_name: 'gritter-info',
+                                    sticky: false,
+                                    time: 1500,
+                                    speed:1000,
+                                    image: 'assets/images/avatars/avatar.png',
+                                })
+                            }
+                        },
+                        "取消": {
+                            "label": "<i class='ace-icon glyphicon glyphicon-remove'></i> 取消",
+                            "className": "btn-sm btn-danger",
+                            "callback": function () {
+                                //Example.show("uh oh, look out!");
+                            }
                         }
                     },
-                    "取消": {
-                        "label": "<i class='ace-icon glyphicon glyphicon-remove'></i> 取消",
-                        "className": "btn-sm btn-danger",
-                        "callback": function () {
-                            //Example.show("uh oh, look out!");
-                        }
+                    callback:function(a){
+                       /* $(a).on('click',function(){
+                            item.serviceName=panelApp.item.serviceName
+                            item.serviceId=panelApp.item.serviceId
+                            item.folder=panelApp.item.folder
+                            item.sortNo=panelApp.item.sortNo
+                        })*/
+
                     }
-                }
+                });
+                panelApp.item=item;
             });
+
+        },
+        reload:function(){
+            location.reload();
         }
 
     }

@@ -1,7 +1,7 @@
 <div id="vmApp">
     <div class="row">
         <div class="col-xs-12">
-            <button class="btn btn-xs btn-success"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新
+            <button class="btn btn-xs btn-success" @click="reload()"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新
             </button>
         </div>
     </div>
@@ -55,4 +55,11 @@
     </div>
 
 </div>
+<style>
+    .gritter-close{
+        position:absolute;
+        top:2px;
+        left:270px;
+    }
+</style>
 <script src="modules/modulesMgr/main.js"></script>
