@@ -14,8 +14,9 @@ var Config = {
         autoWidth: false,
         select: {style: 'multi'},
         pagingType: 'full_numbers',
+        processing: true,
         language: {
-            "sProcessing": "处理中...",
+            "sProcessing": '<i class="ace-icon fa fa-spinner fa-spin orange bigger-125"></i>&nbsp;&nbsp;处理中...',
             "sLengthMenu": "显示 _MENU_ 项结果",
             "sZeroRecords": "没有匹配结果",
             "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",

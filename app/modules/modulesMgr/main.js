@@ -1,10 +1,12 @@
 var vmApp = new Vue({
     el: '#vmApp',
     data: {
-        menus: []
+        menus: [],
+        ajaxparams:{}
     },
     mounted: function () {
         this.fetchData();
+
         var active_class = 'active';
         $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
             var th_checked = this.checked;//checkbox inside "TH" table header
@@ -30,6 +32,14 @@ var vmApp = new Vue({
                 if (result.success) {
                     $this.render(result);
                 }
+            }, function (error) {
+                console.log(error);
+            });
+        },
+        ajaxParams:function(){
+            var $this = this;
+            JqdeMods.ajax('modulesMgr', 'updateModule',$this.ajaxparams).then(function (result) {
+                /*console.log(result.success)*/
             }, function (error) {
                 console.log(error);
             });
@@ -60,8 +70,8 @@ var vmApp = new Vue({
                             "className": "btn-sm",
                             "callback": function () {
                                 //Example.show("great success");
+                                var text = document.getElementsByClassName('form-control');
                                 for (var i in $this.menus) {
-                                    var text = document.getElementsByClassName('form-control');
                                     if ($this.menus[i].serviceName == panelApp.item.serviceName) {
                                         $this.menus[i].serviceName = text[1].value
                                         $this.menus[i].serviceId = text[0].value
@@ -69,6 +79,15 @@ var vmApp = new Vue({
                                         $this.menus[i].sortNo = text[3].value
                                     }
                                 }
+                                $this.ajaxparams={
+                                    "serviceId":text[0].value,
+                                    "serviceName":text[1].value,
+                                    "folder":text[2].value,
+                                    "sortNo":text[3].value
+                                }
+
+                                $this.ajaxParams();
+
                                 $.gritter.add({
                                     text: '模块信息保存成功！',
                                     class_name: 'gritter-info',
@@ -86,23 +105,15 @@ var vmApp = new Vue({
                                 //Example.show("uh oh, look out!");
                             }
                         }
-                    },
-                    callback:function(a){
-                       /* $(a).on('click',function(){
-                            item.serviceName=panelApp.item.serviceName
-                            item.serviceId=panelApp.item.serviceId
-                            item.folder=panelApp.item.folder
-                            item.sortNo=panelApp.item.sortNo
-                        })*/
-
                     }
+
                 });
                 panelApp.item=item;
             });
 
         },
         reload:function(){
-            location.reload();
+            this.fetchData();
         }
 
     }

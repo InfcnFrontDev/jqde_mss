@@ -59,6 +59,10 @@ var vmApp = new Vue({
                     }
                 }
             ],
+            "ajax": {
+                url: Config.apiPath + "/qdeMods/ajax?action=mssTableAction&verb=list",
+                dataSrc: 'rows'
+            },
             "sorting": [[1, "asc"]],
         }, Config.dataTable_defaultOptions));
 
@@ -81,40 +85,10 @@ var vmApp = new Vue({
             else
                 $row.removeClass(active_class);
         });
-
-
-        this.fetchData();
     },
     methods: {
-        fetchData: function () {
-            var $this = this;
-            JqdeMods.ajax('mssTableAction', 'list').then(function (result) {
-                if (result.success) {
-                    $this.render(result);
-                }
-            }, function (error) {
-                console.log(error);
-            });
-        },
-        render: function (result) {
-            this.rows = result.rows;
-            this.dataTable.rows.add(result.rows).draw();
-        },
         refresh: function () {
-            this.fetchData();
-
-            // var ajaxParams = {
-            //     "serviceId": "mssTableAction",
-            //     "serviceName": "库表管理",
-            //     "folder": "元数据库管理",
-            //     "sortNo": "321"
-            // };
-            // JqdeMods.ajax('modulesMgr', 'updateModule', ajaxParams).then(function (result) {
-            //     console.log(result);
-            // }, function (error) {
-            //     console.log(error);
-            // });
-
+            this.dataTable.ajax.reload();
         }
     }
 })
