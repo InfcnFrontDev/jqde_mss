@@ -28,6 +28,8 @@ var vmApp = new Vue({
             if (this.checked) $row.addClass(active_class);
             else $row.removeClass(active_class);
         });
+
+
     },
     methods: {
         render: function (result) {
@@ -47,6 +49,30 @@ var vmApp = new Vue({
             }, function (error) {
 
             });
+        },
+        tandelete:function(){
+            var self=this;
+              bootbox.dialog({
+              message: "<span class='bigger-110'>你确定要删除吗？</span>",
+                  buttons: {
+                      cancel: {
+                          label: '<i class="fa fa-times"></i> 取消',
+                          "callback": function () {
+                              //Example.show("great success");
+                          }
+                      },
+                      confirm: {
+                          label: '<i class="fa fa-check"></i> 确定',
+                          "callback": function () {
+                              //Example.show("great success");
+                              self.deleteinformation();
+                          }
+                      }
+                  }
+              });
+
+
+
         },
         tankuang:function(){
             var that=this;
@@ -95,6 +121,9 @@ var vmApp = new Vue({
                 };
             }
             $this.home.push(arr)
+        },
+        deleteinformation:function(){
+
         },
         dbedit:function(){
             this.tankuang()
