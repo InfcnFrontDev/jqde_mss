@@ -1,6 +1,7 @@
-input{
+input {
     outline: none;
 }
+
 .dataTables_wrapper .row:first-child {
     padding-bottom: 8px;
 }
@@ -24,19 +25,32 @@ input{
     height: 20px;
     line-height: 20px;
 }
-.dataTables_wrapper table .btn{
-    padding:0px 2px 0px 4px;
+
+.dataTables_wrapper table .btn {
+    padding: 0px 2px 0px 4px;
     border-width: 2px;
 }
-.submenu1 .submenu-privileges{
+
+.submenu1 .submenu-privileges {
     font-style: normal;
     margin-left: 20px;
 }
-.submenu1 .submenu-privileges input{
+
+.submenu1 .submenu-privileges input {
     display: inline-block;
     vertical-align: top;
     margin-left: 4px;
 }
-.submenu1 .submenu-privileges span{
+
+.submenu1 .submenu-privileges span {
     margin: 0 4px;
+}
+
+.dataTables_wrapper .dataTables_processing {
+    width: 20%;
+    margin-left: -10%;
+    padding: 20px;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
 }
