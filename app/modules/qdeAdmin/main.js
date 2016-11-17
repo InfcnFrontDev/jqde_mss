@@ -8,13 +8,26 @@ var vmApp = new Vue({
         department:'',
         user:'',
         email:'',
-        checkedall: false,
-        checked: false,
-
     },
     mounted: function () {
         this.fetchData();
+        var active_class = 'active';
+        $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
+            var th_checked = this.checked;//checkbox inside "TH" table header
 
+            $(this).closest('table').find('tbody > tr').each(function () {
+                var row = this;
+                if (th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+                else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+            });
+        });
+        //select/deselect a row when the checkbox is checked/unchecked
+        $('#dynamic-table').on('click', 'td input[type=checkbox]', function () {
+            var $row = $(this).closest('tr');
+            if ($row.is('.detail-row ')) return;
+            if (this.checked) $row.addClass(active_class);
+            else $row.removeClass(active_class);
+        });
         var $this=this;
         $("#bootbox-confirm").on(ace.click_event, function() {
             $.get('modules/qdeAdmin/information.html', function (html) {
@@ -58,75 +71,6 @@ var vmApp = new Vue({
         },
         addinformation:function(){
             var $this=this
-           /* if(vmadd.checked){
-                var $tr="<tr>\
-                <td class=\"center\">\
-                <label class=\"pos-rel\">\
-                <input type=\"checkbox\" class=\"ace checkadmin\" v-model=\"checked\"/>\
-                <span class=\"lbl\"></span>\
-                </label>\
-                </td>\
-                <td >\
-                <a href=\"#\">"+vmadd.userid+"</a>\
-            </td>\
-            <td >"+vmadd.name+"</td>\
-            <td class=\"hidden-480\">"+vmadd.picked+"</td>\
-            <td>"+vmadd.phone+"</td>\
-            <td class=\"hidden-480\">"+vmadd.email+"</td>\
-            <td>"+vmadd.department+"</td>\
-            <td>\
-            <div class=\"hidden-sm hidden-xs action-buttons\">\
-                <a class=\"green\" href=\"#\">\
-                <i class=\"ace-icon fa fa-pencil  bigger-130\"></i>\
-                </a>\
-                <a class=\"red\" href=\"#\">\
-                <i class=\"ace-icon fa fa-trash-o  bigger-130\"></i>\
-                </a>\
-                </div>\
-                </td>\
-                <td>\
-                <div class=\"hidden-sm hidden-xs action-buttons\">\
-                <a class=\"green\" href=\"#\">\
-                <i class=\"ace-icon fa fa-check bigger-130\"></i>\
-                </a>\
-                </div>\
-                </td>\
-                </tr>"
-            }else{
-                var $tr="<tr>\
-                <td class=\"center\">\
-                <label class=\"pos-rel\">\
-                <input type=\"checkbox\" class=\"ace checkadmin\" v-model=\"checked\"/>\
-                <span class=\"lbl\"></span>\
-                </label>\
-                </td>\
-                <td >\
-                <a href=\"#\">"+vmadd.userid+"</a>\
-            </td>\
-            <td >"+vmadd.name+"</td>\
-            <td class=\"hidden-480\">"+vmadd.picked+"</td>\
-            <td>"+vmadd.phone+"</td>\
-            <td class=\"hidden-480\">"+vmadd.email+"</td>\
-            <td>"+vmadd.department+"</td>\
-            <td>\
-            <div class=\"hidden-sm hidden-xs action-buttons\">\
-                <a class=\"green\" href=\"#\">\
-                <i class=\"ace-icon fa fa-pencil  bigger-130\"></i>\
-                </a>\
-                <a class=\"red\" href=\"#\">\
-                <i class=\"ace-icon fa fa-trash-o  bigger-130\"></i>\
-                </a>\
-                </div>\
-                </td>\
-                <td>\
-                <div class=\"hidden-sm hidden-xs action-buttons\">\
-                <a class=\"red\" href=\"#\">\
-                <i class=\"ace-icon glyphicon glyphicon-remove bigger-130\"></i>\
-                </a>\
-                </div>\
-                </td>\
-                </tr>"
-            }*/
             if(vmadd.checked){
                 var arr={
                     userId:vmadd.userid,
@@ -146,14 +90,7 @@ var vmApp = new Vue({
                     enabled:false
                 };
             }
-            console.log($this.home);
             $this.home.push(arr)
-            console.log($this.home);
-
-
-
-                /*  var addtr=$tr;
-                $('.infor-tbody').append(addtr)*/
         },
         render: function (result) {
 
