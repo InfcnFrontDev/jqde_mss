@@ -2,76 +2,26 @@ var vmApp = new Vue({
     el: '#vmApp',
     data: {
         menus: []
-
     },
     mounted: function () {
-        this.table = $('#dynamic-table').DataTable({
-            "dom": "<'row'<'col-sm-8'f><'col-sm-4 dataTables_buttons'>><'row'<tr>><'row'<'col-sm-5'li><'col-sm-7'p>>",
-            "bAutoWidth": false,
-            "lengthMenu": [10, 25, 50, 75, 100],
-            "pagingType": "full_numbers",
-            "language": {
-                "sProcessing": "处理中...",
-                "sLengthMenu": "显示 _MENU_ 项结果",
-                "sZeroRecords": "没有匹配结果",
-                "sInfo": "，显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                "sInfoPostFix": "",
-                "sSearch": "搜索：",
-                "sUrl": "",
-                "sEmptyTable": "表中数据为空",
-                "sLoadingRecords": "载入中...",
-                "sInfoThousands": ",",
-                "oPaginate": {
-                    "sFirst": "首页",
-                    "sPrevious": "上一页",
-                    "sNext": "下一页",
-                    "sLast": "末页"
-                },
-                "oAria": {
-                    "sSortAscending": ": 以升序排列此列",
-                    "sSortDescending": ": 以降序排列此列"
-                }
-            },
+        this.fetchData();
+        var active_class = 'active';
+        $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
+            var th_checked = this.checked;//checkbox inside "TH" table header
 
-
-            "columns": [
-                {
-                    "title": '<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>',
-                    "data": null,
-                    "sortable": false,
-                    "className": 'text-center',
-                    "render": function (data, type, row, meta) {
-                        return '<label class="pos-rel"><input type="checkbox" class="ace" /><span class="lbl"></span></label>';
-                    }
-                },
-                {"title": "模块名称", "data": "serviceName", "sortable": true},
-                {"title": "模块ID", "data": "serviceId"},
-                {"title": "模块分组", "data": "folder"},
-                {"title": "排序号", "data": "sortNo"},
-                {"title": "主机", "data": "host"},
-                {
-                    "title": '',
-                    "data": null,
-                    "sortable": false,
-                    "className": 'text-center',
-                    "render": function (data, type, row, meta) {
-                        return '<button class="btn btn-xs btn-info"><i class="ace-icon fa fa-pencil bigger-120"></i></button>';
-                    }
-                }
-            ],
-            "ajax": {
-                url: Config.apiPath + "/qdeMods/ajax?action=modulesMgr&verb=getAllMoudles",
-                dataSrc: 'rows'
-            },
-            "order": [1, "asc"],
-            select: {
-                style: 'multi'
-            }
+            $(this).closest('table').find('tbody > tr').each(function () {
+                var row = this;
+                if (th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+                else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+            });
         });
-        $('.dataTables_buttons').append($('.buttons'));
-
+        //select/deselect a row when the checkbox is checked/unchecked
+        $('#dynamic-table').on('click', 'td input[type=checkbox]', function () {
+            var $row = $(this).closest('tr');
+            if ($row.is('.detail-row ')) return;
+            if (this.checked) $row.addClass(active_class);
+            else $row.removeClass(active_class);
+        });
     },
     methods: {
         fetchData: function () {
@@ -96,10 +46,6 @@ var vmApp = new Vue({
 
             }
             this.menus = menus;
-
-            setTimeout(function () {
-
-            }, 500)
         },
         tankuang: function (item) {
 

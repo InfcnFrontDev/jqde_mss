@@ -1,2 +1,1 @@
-
-console.log('mssSqlAction.main.js');
+var myCodeMirror = CodeMirror(document.body);
