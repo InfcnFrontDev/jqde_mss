@@ -50,3 +50,11 @@ var JqdeProfiles = {
         return newPromise('qdeAdmin', 'getAllPrivileges');
     }
 };
+var JqdeProfiles = {
+    getCurrentProfiles: function () {
+        return newPromise('qdeProfiles', 'getCurrentProfiles');
+    },
+    getFreeView: function () {
+        return newPromise('qdeAdmin', 'getAllPrivileges');
+    }
+};
