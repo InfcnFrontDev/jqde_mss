@@ -1,7 +1,7 @@
 jQuery(function($) {
 
     $('#btnLogin').click(function () {
-        location = '/';
+        location = './';
     });
 
 });

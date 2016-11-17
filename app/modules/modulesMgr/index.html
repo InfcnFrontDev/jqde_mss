@@ -1,69 +1,10 @@
 <div id="vmApp">
-    <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-xs btn-success"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新</button>
-        </div>
+    <div class="buttons">
+        <button class="btn btn-xs btn-success"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新</button>
+        <button class="btn btn-xs btn-success"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新</button>
+        <button class="btn btn-xs btn-success"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新</button>
+        <button class="btn btn-xs btn-success"><i class="ace-icon glyphicon glyphicon-refresh bigger-100"></i>刷新</button>
     </div>
-
-    <div class="space-6"></div>
-
-    <div class="row">
-        <div class="col-xs-12">
-
-            <table id="dynamic-table" class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th class="center">
-                        <label class="pos-rel">
-                            <input type="checkbox" class="ace"/>
-                            <span class="lbl"></span>
-                        </label>
-                    </th>
-                    <th>模块名称</th>
-                    <th>模块ID</th>
-                    <th>排序号</th>
-                    <th class="hidden-480">菜单位置</th>
-
-                    <th class="hidden-480">
-                        主机
-                    </th>
-
-                    <th></th>
-                </tr>
-                </thead>
-
-                <tbody>
-                <tr v-for="item in menus" id="table-li" @dblclick="tankuang(item)">
-                    <td class="center">
-                        <label class="pos-rel">
-                            <input type="checkbox" class="ace"/>
-                            <span class="lbl"></span>
-                        </label>
-                    </td>
-
-                    <td>
-                        {{item.serviceName}}
-                    </td>
-
-                    <td>
-                        {{item.serviceId}}
-                    </td>
-                    <td></td>
-                    <td class="hidden-480">{{item.folder}}</td>
-                    <td>Feb 12</td>
-
-                    <td>
-                        <div class="hidden-sm hidden-xs action-buttons">
-                            <a class="green" href="javascript:;" @click="tankuang(item)">
-                                <i class="ace-icon fa fa-pencil bigger-130"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div><!-- /.span -->
-    </div>
-
+    <table id="dynamic-table" class="table table-striped table-bordered table-hover"></table>
 </div>
 <script src="modules/modulesMgr/main.js"></script>

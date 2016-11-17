@@ -42,5 +42,5 @@ var JqdeProfiles = {
     },
     getFreeView: function () {
         return newPromise('qdeAdmin', 'getAllPrivileges');
-    },
+    }
 };
