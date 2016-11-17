@@ -9,10 +9,16 @@ var $ajax = function (url, ajaxParams, success, error) {
     //     console.log(response);
     // });
 
+
+    var data = null;
+    if (ajaxParams)
+        data = {'ajaxParams': JSON.stringify(ajaxParams)};
+
+
     $.ajax({
         type: 'post',
         url: url,
-        data: {'ajaxParams': JSON.stringify(ajaxParams)},
+        data: data,
         cache: false,
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
@@ -29,7 +35,7 @@ var newPromise = function (action, verb, ajaxParams) {
     var apiPath = Config.apiPath.replace(/\/?$/, '');
     var url = apiPath + '/qdeMods/ajax?action=' + action + '&verb=' + verb;
     return new Promise(function (resolve, reject) {
-        $ajax(url,ajaxParams, function (result) {
+        $ajax(url, ajaxParams, function (result) {
             resolve(result)
         }, function (error) {
             reject(error)
