@@ -29,6 +29,9 @@ var vmApp = new Vue({
                 menus.push(moduleMenu);
             }
             this.menus = menus;
+        },
+        refresh:function(){
+            this.fctchData();
         }
     }
 })
