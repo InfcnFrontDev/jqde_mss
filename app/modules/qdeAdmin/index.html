@@ -2,7 +2,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <button class="btn btn-xs btn-info" id="bootbox-confirm"><i class="ace-icon fa fa-plus-square bigger-130"></i>添加</button>
+            <button class="btn btn-xs btn-info" id="bootbox-confirm" @click="tankuang()"><i class="ace-icon fa fa-plus-square bigger-130"></i>添加</button>
             <button class="btn btn-xs btn-warning"><i class="ace-icon fa fa-times bigger-130"></i>删除</button>
             <button class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-130"></i>刷新</button>
         </div>
@@ -37,7 +37,7 @@
                     </thead>
 
                     <tbody class="infor-tbody">
-                    <tr v-for="item in home" >
+                    <tr v-for="item in home" @dblclick="tankuang()">
                         <td class="center">
                             <label class="pos-rel">
                                 <input type="checkbox" class="ace checkadmin" />
@@ -56,10 +56,10 @@
                         <td>{{item.department}}</td>
                         <td>
                             <div class="hidden-sm hidden-xs action-buttons">
-                                <a class="green" href="#">
-                                    <i class="ace-icon fa fa-pencil  bigger-130"></i>
+                                <a class="green">
+                                    <i class="ace-icon fa fa-pencil  bigger-130" @click="tankuang()"></i>
                                 </a>
-                                <a class="red" href="#">
+                                <a class="red" href="javascript:;">
                                     <i class="ace-icon fa fa-trash-o  bigger-130"></i>
                                 </a>
                             </div>
