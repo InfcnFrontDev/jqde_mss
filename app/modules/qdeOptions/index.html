@@ -1,17 +1,21 @@
 <form class="form-horizontal" role="form" id="vmApp">
-    <div class="form-group" v-for="item in menus">
-        <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> {{item.name}}</label>
-        <div class="col-sm-9">
-            <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-5" :value="item.value"/>
+    <div v-for="group in groups">
+        <h4 class="header green"><i class="ace-icon fa fa-signal"></i>{{group.category}}</h4>
+        <div class="form-group"  v-for="row in group.rows">
+            <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> {{row.name}}</label>
+            <div class="col-sm-9">
+                <input type="text" id="form-field-1" placeholder="Username" class="col-xs-10 col-sm-5" :value="row.value"/>
+            </div>
         </div>
     </div>
+
     <div class="clearfix form-actions">
         <div class="col-md-offset-3 col-md-9">
             <button class="btn  btn-sm">
                 <i class="ace-icon fa fa-floppy-o bigger-125"></i>
                 保存
             </button>
-            <button class="btn btn-sm btn-success" type="reset" style="margin-left:10px;">
+            <button class="btn btn-sm btn-success" type="reset" style="margin-left:10px;" @click="refresh()">
                 <i class="ace-icon fa fa-undo bigger-110"></i>
                 刷新
             </button>
