@@ -67,7 +67,6 @@ var vmApp = new Vue({
                           label: '<i class="fa fa-check"></i> 确定',
                           "callback": function () {
                               //Example.show("great success");
-
                               for(var i in self.home){
                                   if(self.home[i].userId==items.userId){
                                       var j=i;
