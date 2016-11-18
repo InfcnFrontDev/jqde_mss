@@ -1,8 +1,8 @@
 <div id="vmApp">
     <div class="row">
         <div class="col-xs-12">
-            <button class="btn btn-xs btn-info" id="bootbox-confirm" @click="tankuang()"><i class="ace-icon fa fa-plus-square bigger-130"></i>添加</button>
-            <button class="btn btn-xs btn-warning" id="bootbox-options" @click="tandelete()" ><i class="ace-icon fa fa-times bigger-130"></i>删除</button>
+            <button class="btn btn-xs btn-info" id="bootbox-confirm" @click="tankuang(item)"><i class="ace-icon fa fa-plus-square bigger-130"></i>添加</button>
+            <button class="btn btn-xs btn-warning" id="bootbox-options" @click="tandelete(item)" ><i class="ace-icon fa fa-times bigger-130"></i>删除</button>
             <button class="btn btn-xs btn-danger"><i class="ace-icon fa fa-trash-o bigger-130"></i>刷新</button>
         </div>
     </div>
@@ -36,7 +36,7 @@
                     </thead>
 
                     <tbody class="infor-tbody">
-                    <tr v-for="item in home" @dblclick="tankuang()">
+                    <tr v-for="item in home" @dblclick="tankuang(item)">
                         <td class="center">
                             <label class="pos-rel">
                                 <input type="checkbox" class="ace checkadmin" />
@@ -56,10 +56,10 @@
                         <td>
                             <div class="hidden-sm hidden-xs action-buttons">
                                 <a class="green">
-                                    <i class="ace-icon fa fa-pencil  bigger-130" @click="tankuang()"></i>
+                                    <i class="ace-icon fa fa-pencil  bigger-130" @click="tankuang(item)"></i>
                                 </a>
                                 <a class="red" href="javascript:;">
-                                    <i class="ace-icon fa fa-trash-o  bigger-130" @click="tandelete()"></i>
+                                    <i class="ace-icon fa fa-trash-o  bigger-130" @click="tandelete(item)"></i>
                                 </a>
                             </div>
                         </td>

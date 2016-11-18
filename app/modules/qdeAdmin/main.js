@@ -8,6 +8,7 @@ var vmApp = new Vue({
         department:'',
         user:'',
         email:'',
+        itme:''
     },
     mounted: function () {
         this.fetchData();
@@ -50,8 +51,9 @@ var vmApp = new Vue({
 
             });
         },
-        tandelete:function(){
+        tandelete:function(item){
             var self=this;
+            var items=item;
               bootbox.dialog({
               message: "<span class='bigger-110'>你确定要删除吗？</span>",
                   buttons: {
@@ -65,7 +67,14 @@ var vmApp = new Vue({
                           label: '<i class="fa fa-check"></i> 确定',
                           "callback": function () {
                               //Example.show("great success");
-                              self.deleteinformation();
+
+                              for(var i in self.home){
+                                  if(self.home[i].userId==items.userId){
+                                      var j=i;
+                                      self.home.splice(j,1)
+                                  }
+                              }
+
                           }
                       }
                   }
@@ -121,9 +130,6 @@ var vmApp = new Vue({
                 };
             }
             $this.home.push(arr)
-        },
-        deleteinformation:function(){
-
         },
         dbedit:function(){
             this.tankuang()
