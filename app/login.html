@@ -35,7 +35,7 @@
         <![endif]-->
 	</head>
 
-	<body class="login-layout">
+	<body class="login-layout light-login">
 		<div class="main-container">
 			<div class="main-content">
 				<div class="row">
@@ -52,7 +52,7 @@
 
 							<div class="space-6"></div>
 
-							<div class="position-relative">
+							<div id="vmLogin" class="position-relative">
 								<div id="login-box" class="login-box visible widget-box no-border">
 									<div class="widget-body">
 										<div class="widget-main">
@@ -67,14 +67,14 @@
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
+															<input type="text" class="form-control" placeholder="Username" v-model="userId" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" class="form-control" placeholder="Password" v-model="password" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
@@ -87,13 +87,17 @@
 															<span class="lbl"> Remember Me</span>
 														</label>
 
-														<button id="btnLogin" type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<button id="btnLogin" type="button" class="width-35 pull-right btn btn-sm btn-primary" @click="login()">
 															<i class="ace-icon fa fa-key"></i>
 															<span class="bigger-110">Login</span>
 														</button>
 													</div>
 
 													<div class="space-4"></div>
+
+                                                    <div class="clearfix red">
+                                                        {{error}}
+                                                    </div>
 												</fieldset>
 											</form>
 
@@ -128,7 +132,6 @@
 
 		<!--[if !IE]> -->
 		<script src="assets/js/jquery-2.1.4.min.js"></script>
-
 		<!-- <![endif]-->
 
 		<!--[if IE]>
@@ -139,6 +142,8 @@
 		</script>
 
 		<!-- inline scripts related to this page -->
-		<script type="text/javascript" src="js/login.js"></script>
+        <script src="vendors/vue/dist/vue.js"></script>
+        <script src="js/config.js"></script>
+		<script src="js/login.js"></script>
 	</body>
 </html>

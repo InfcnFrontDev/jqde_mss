@@ -118,6 +118,22 @@ var vmApp = new Vue({
                 $("#breadcrumbs ul.breadcrumb").append($("<li>111</li>")
                     .html($.trim($(this).clone().children(".badge").remove().end().text())));
             });
+        },
+        logout: function () {
+            JqdeBox.confirm('您确定要退出吗？', function (result) {
+                if (result) {
+                    $.ajax({
+                        type: 'post',
+                        url: Config.apiPath + '/qdeMods/logout',
+                        success: function (result) {
+                            location = 'login.html';
+                        },
+                        error: function (error) {
+                            JqdeBox.message(false, error);
+                        }
+                    });
+                }
+            });
         }
     }
 });

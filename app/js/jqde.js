@@ -1,7 +1,6 @@
 /**
  * JqdeMods ajax
  */
-
 var JqdeMods = {
     ajax: function (action, verb, ajaxParams) {
         var apiPath = Config.apiPath.replace(/\/?$/, '');
@@ -18,7 +17,11 @@ var JqdeMods = {
             }
 
             $.ajax({
-                type: 'post', url: url, data: data, cache: false, dataType: 'json',
+                type: 'post',
+                url: url,
+                data: data,
+                cache: false,
+                dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
                     resolve(data);
                 },
@@ -27,6 +30,35 @@ var JqdeMods = {
                 }
             });
         })
+    },
+    get: function (url, success, error) {
+        $.ajax({
+            type: 'get',
+            url: url,
+            cache: false,
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                if (success) success(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                if (error) error(XMLHttpRequest);
+            }
+        });
+    },
+    post: function (url, data, success, error) {
+        $.ajax({
+            type: 'post',
+            url: url,
+            data: data,
+            cache: false,
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                if (success) success(data);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                if (error) error(XMLHttpRequest);
+            }
+        });
     }
 };
 
