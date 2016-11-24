@@ -4,10 +4,21 @@
 
 var vmLogin = new Vue({
     el: '#vmLogin',
-    data: {
-        userId: "",
-        password: "",
-        error: ''
+    data: function () {
+        var userId = '', password = '', rememberMe = false;
+        if (localStorage.rememberMe) {
+            rememberMe = eval(localStorage.rememberMe);
+        }
+        if (rememberMe) {
+            userId = localStorage.userId;
+            password = localStorage.password;
+        }
+        return {
+            userId: userId,
+            password: password,
+            rememberMe: rememberMe,
+            error: '',
+        }
     },
     methods: {
         login: function () {
@@ -21,6 +32,17 @@ var vmLogin = new Vue({
                 success: function (result) {
                     if (result.indexOf('模块导航') > -1) {
                         vmLogin.error = '';
+
+                        if (vmLogin.rememberMe) {
+                            localStorage.rememberMe = true;
+                            localStorage.userId = vmLogin.userId;
+                            localStorage.password = vmLogin.password;
+                        } else {
+                            localStorage.rememberMe = false;
+                            localStorage.userId = null;
+                            localStorage.password = null;
+                        }
+
                         location = './';
                     } else {
                         vmLogin.error = '用户名或密码不正确。'
