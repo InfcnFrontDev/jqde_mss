@@ -61,6 +61,71 @@ var Tools = {
         var time = date.valueOf();
         time += n * 1000;
         return new Date(time);
-    }
+    },
 
+    /*
+     * LOAD SCRIPTS
+     * Usage:
+     * Define function = myPrettyCode ()...
+     * loadScript("js/my_lovely_script.js", myPrettyCode);
+     */
+    jsArray: "",
+    loadScript: function (scriptName, callback) {
+        if (this.jsArray.indexOf("[" + scriptName + "]") == -1) {
+
+            //List of files added in the form "[filename1],[filename2],etc"
+            this.jsArray += "[" + scriptName + "]";
+
+            // adding the script tag to the head as suggested before
+            var body = document.getElementsByTagName('body')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = scriptName;
+
+            // then bind the event to the callback function
+            // there are several events for cross browser compatibility
+            //script.onreadystatechange = callback;
+            script.onload = callback;
+
+            // fire the loading
+            body.appendChild(script);
+
+        } else if (callback) { // changed else to else if(callback)
+            //console.log("JS file already added!");
+            //execute function
+            callback();
+        }
+    },
+    // LOAD AJAX PAGES
+    loadURL: function (url, container, successCallback, errorCallback) {
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: 'html',
+            cache: true, // (warning: this will cause a timestamp and will call the request twice)
+            beforeSend: function () {
+                container.html('<h1><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
+            },
+            success: function (data) {
+                container.css({
+                    opacity: '0.0'
+                })
+                    .html(data)
+                    .delay(100)
+                    .animate({
+                        opacity: '1.0'
+                    }, 300);
+
+                if (successCallback) successCallback();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                container.html(
+                    '<h4 style="margin-top:10px; display:block; text-align:left"><i class="fa fa-warning txt-color-orangeDark"></i> Error 404! Page not found.</h4>'
+                );
+
+                if (errorCallback) errorCallback();
+            },
+            async: false
+        });
+    }
 };

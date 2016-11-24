@@ -1,5 +1,5 @@
-var vmApp = new Vue({
-    el: '#vmApp',
+var vmModule = new Vue({
+    el: '#vmModule',
     data: {
         rows: []
     },
@@ -66,7 +66,7 @@ var vmApp = new Vue({
             "sorting": [[1, "asc"]],
         }, Config.dataTable_defaultOptions));
 
-        var active_class = 'active';
+        var active_class = 'selected';
         $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
             var th_checked = this.checked;//checkbox inside "TH" table header
 

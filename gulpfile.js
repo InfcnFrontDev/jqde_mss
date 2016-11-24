@@ -24,6 +24,6 @@ function server() {
             baseDir: 'app/'
         },
         open: false,
-        notify: true
+        notify: false
     });
 }

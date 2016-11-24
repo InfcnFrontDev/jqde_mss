@@ -1,5 +1,5 @@
-var vmApp = new Vue({
-    el: '#vmApp',
+var vmModule = new Vue({
+    el: '#vmModule',
     data: {
         userId: 'root',
         userName: 'INFCN',

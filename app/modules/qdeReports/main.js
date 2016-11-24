@@ -1,5 +1,5 @@
-var vmApp = new Vue({
-    el: '#vmApp',
+var vmModule = new Vue({
+    el: '#vmModule',
     data: {
         groups: []
     },
@@ -9,13 +9,21 @@ var vmApp = new Vue({
     methods: {
         fetchData: function () {
             var $this = this;
+            JqdeBox.loading();
             JqdeMods.ajax('qdeReports', 'getReports').then(function (result) {
-                $this.render(result);
-            }, function (error) {
-                console.log(error);
+                JqdeBox.unloading();
+                if (result.success) {
+                    $this.render(result);
+                } else {
+                    // 后台报错，临时假数据测试
+                    $this.render(result);
+
+                    JqdeBox.message(false, result.message);
+                }
             });
         },
         render: function (result) {
+            // 后台报错，临时假数据测试
             result = {
                 "success": true,
                 "rows": [{
@@ -51,9 +59,6 @@ var vmApp = new Vue({
             }
 
             this.groups = groups;
-        },
-        refresh: function () {
-            this.fetchData();
         }
     }
 })

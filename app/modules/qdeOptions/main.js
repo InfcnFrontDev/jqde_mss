@@ -1,6 +1,5 @@
-
-var vmApp = new Vue({
-    el: '#vmApp',
+var vmModule = new Vue({
+    el: '#vmModule',
     data: {
         groups: []
     },
@@ -10,50 +9,17 @@ var vmApp = new Vue({
     methods: {
         fetchData: function () {
             var $this = this;
+            JqdeBox.loading();
             JqdeMods.ajax('qdeOptions', 'getAllOptions').then(function (result) {
+                JqdeBox.unloading();
+                if (result.success) {
                     $this.render(result);
-            }, function (error) {
-                console.log(error);
+                } else {
+                    JqdeBox.message(false, result.message);
+                }
             });
         },
         render: function (result) {
-            result = {
-                total: 4,
-                success: true,
-                rows: [
-                    {
-                        editor: "text",
-                        name: "API接口连接",
-                        category: "系统设置",
-                        value: "192.168.10.9",
-                        key: "api_url"
-                    },
-                    {
-                        editor: {
-                            type: "numberbox"
-                        },
-                        name: "API接口端口号",
-                        category: "系统设置",
-                        value: "9095",
-                        key: "api_port"
-                    },
-                    {
-                        editor: "text",
-                        name: "sql接口",
-                        category: "系统设置",
-                        value: "192.168.10.9:9200",
-                        key: "search_host"
-                    },
-                    {
-                        editor: "text",
-                        name: "用户名",
-                        category: "注册信息",
-                        value: "图书馆",
-                        key: "license.user"
-                    }
-                ]
-            };
-
             var groups = [], groupMap = {};
             for (var i in result.rows) {
                 var row = result.rows[i];
@@ -67,11 +33,24 @@ var vmApp = new Vue({
                 }
                 groupMap[row.category].push(row);
             }
-            console.log(groups);
             this.groups = groups;
         },
-        refresh:function(){
-            this.fetchData();
+        update: function () {
+            // ajaxParams:{"api_url":"192.168.10.9","api_port":"9095","search_host":"192.168.10.9:9200","license.user":"图书馆"}
+            var ajaxParams = {};
+            $(this.$el).find('input.form-field').each(function () {
+                ajaxParams[this.name] = this.value;
+            });
+
+            // /qdeMods/ajax?action=qdeOptions&verb=updateOptions
+            JqdeMods.ajax('qdeOptions', 'updateOptions', ajaxParams).then(function (result) {
+                if (result.success) {
+                    JqdeBox.message(true, '修改成功！');
+                } else {
+                    JqdeBox.message(false, result.message);
+                }
+            });
+
         }
     }
 })

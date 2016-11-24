@@ -1,137 +1,150 @@
-var vmApp = new Vue({
-    el: '#vmApp',
+var vmModule = new Vue({
+    el: '#vmModule',
     data: {
-        home: [],
-        name:'',
-        phone:'12121212',
-        password:'',
-        department:'',
-        user:'',
-        email:'',
-        itme:''
+        list: [],
+        ids: []
     },
     mounted: function () {
+        var $this = this;
+
         this.fetchData();
-        var active_class = 'active';
-        $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
-            var th_checked = this.checked;//checkbox inside "TH" table header
 
-            $(this).closest('table').find('tbody > tr').each(function () {
-                var row = this;
-                if (th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-                else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+        // check all
+        var $table = $('#dynamic-table');
+        $table.on('click', 'th input[type=checkbox]', function () {
+            var th_checked = this.checked;
+            $table.find('td input[type=checkbox]').each(function () {
+                this.checked = th_checked;
             });
+            $this.checkChanged();
         });
-        //select/deselect a row when the checkbox is checked/unchecked
-        $('#dynamic-table').on('click', 'td input[type=checkbox]', function () {
-            var $row = $(this).closest('tr');
-            if ($row.is('.detail-row ')) return;
-            if (this.checked) $row.addClass(active_class);
-            else $row.removeClass(active_class);
-        });
-
-
     },
     methods: {
-        render: function (result) {
-
-            var home = []
-            for (var i in result.rows) {
-                home.push(result.rows[i])
-            }
-            this.home = home;
-        },
-        fetchData: function (){
+        // 抓取列表数据
+        fetchData: function () {
             var $this = this;
+            JqdeBox.loading();
             JqdeMods.ajax('qdeAdmin', 'getAllAdmins').then(function (result) {
+                JqdeBox.unloading();
                 if (result.success) {
-                    $this.render(result);
+                    $this.list = result.rows;
+                } else {
+                    JqdeBox.message(false, result.message);
                 }
-            }, function (error) {
-
             });
         },
-        tandelete:function(item){
-            var self=this;
-            var items=item;
-              bootbox.dialog({
-              message: "<span class='bigger-110'>你确定要删除吗？</span>",
-                  buttons: {
-                      cancel: {
-                          label: '<i class="fa fa-times"></i> 取消',
-                          "callback": function () {
-                              //Example.show("great success");
-                          }
-                      },
-                      confirm: {
-                          label: '<i class="fa fa-check"></i> 确定',
-                          "callback": function () {
-                              //Example.show("great success");
-                              for(var i in self.home){
-                                  if(self.home[i].userId==items.userId){
-                                      var j=i;
-                                      self.home.splice(j,1)
-                                  }
-                              }
+        // 添加
+        add: function () {
+            var $this = this;
+            JqdeBox.dialog({
+                title: '添加管理员',
+                url: 'modules/qdeAdmin/edit.html',
+                init: function () {
+                    vmEdit.item = {
+                        "department": "",
+                        "email": "",
+                        "enabled": true,
+                        "name": "",
+                        "password": "",
+                        "phone": "",
+                        "sex": "M",
+                        "userId": ""
+                    };
+                },
+                confirm: function () {
+                    if (vmEdit.valid()) {
 
-                          }
-                      }
-                  }
-              });
-
-
-
-        },
-        tankuang:function(){
-            var that=this;
-            $.get('modules/qdeAdmin/information.html', function (html) {
-                bootbox.dialog({
-                    message: html,
-                    title: "<span class='bigger-110'>添加管理员</span>",
-                    buttons: {
-                        cancel: {
-                            label: '<i class="fa fa-times"></i> 取消',
-                            "callback": function () {
-                                //Example.show("great success");
+                        // 后台交互
+                        JqdeMods.ajax('qdeAdmin', 'addAdmin', vmEdit.ajaxPramas).then(function (result) {
+                            if (result.success) {
+                                $this.list.push(vmEdit.item);// 更新页面
+                                JqdeBox.message(true, '添加成功！');
+                            } else {
+                                JqdeBox.message(false, result.message);
                             }
-                        },
-                        confirm: {
-                            label: '<i class="fa fa-check"></i> 保存',
-                            "callback": function () {
-                                //Example.show("great success");
-                                that.addinformation()
-                            }
-                        }
+                        });
+
+                        return true;
                     }
+                    return false;
+                }
+            });
+        },
+        // 修改
+        edit: function (item, index) {
+            var $this = this;
+            JqdeBox.dialog({
+                title: '修改管理员',
+                url: 'modules/qdeAdmin/edit.html',
+                init: function () {
+                    vmEdit.item = $.extend({}, item);
+                },
+                confirm: function () {
+                    if (vmEdit.valid()) {
 
-                })
-            })
+                        // 后台交互
+                        JqdeMods.ajax('qdeAdmin', 'updateAdmin', vmEdit.ajaxPramas).then(function (result) {
+                            if (result.success) {
+                                $.extend(item, vmEdit.item);
+                                JqdeBox.message(true, '修改成功！');
+                            } else {
+                                JqdeBox.message(false, result.message);
+                            }
+                        });
+                        return true;
+                    }
+                    return false;
+                }
+            });
         },
-        addinformation:function(){
-            var $this=this
-            if(vmadd.checked){
-                var arr={
-                    userId:vmadd.userid,
-                    name:vmadd.name,
-                    picked:vmadd.picked,
-                    phone:vmadd.phone,
-                    email:vmadd.email,
-                    enabled:true
-                };
-            }else{
-                var arr={
-                    userId:vmadd.userid,
-                    name:vmadd.name,
-                    picked:vmadd.picked,
-                    phone:vmadd.phone,
-                    email:vmadd.email,
-                    enabled:false
-                };
-            }
-            $this.home.push(arr)
+        // 删除
+        remove: function (item, index) {
+            var $this = this;
+            JqdeBox.confirm('您确定要删除吗？', function (result) {
+                if (result) {
+
+                    // 后台交互
+                    JqdeMods.ajax('qdeAdmin', 'removeAdmin', {"ids": [item.userId]}).then(function (result) {
+                        if (result.success) {
+                            $this.list.splice(index, 1);
+                            JqdeBox.message(true, '删除成功！');
+                        } else {
+                            JqdeBox.message(false, result.message);
+                        }
+                    });
+
+                    // ajaxParams:{"ids":["aaaaa"]}
+                    // $this.list.splice(0, $this.list.length);
+                }
+            });
         },
-        dbedit:function(){
-            this.tankuang()
+        // 删除选中
+        removeSelected: function () {
+            var $this = this;
+            JqdeBox.confirm('您确定要删除吗？', function (result) {
+                if (result) {
+
+                    // 后台交互
+                    JqdeMods.ajax('qdeAdmin', 'removeAdmin', {"ids": $this.ids}).then(function (result) {
+                        if (result.success) {
+                            $this.fetchData();
+                            JqdeBox.message(true, '删除成功！');
+                        } else {
+                            JqdeBox.message(false, result.message);
+                        }
+                    });
+                }
+            });
+        },
+        // 选中改变
+        checkChanged: function () {
+            var ids = [];
+            $('#dynamic-table').find('td input[type=checkbox]').each(function () {
+                if (this.checked) {
+                    ids.push(this.value);
+                }
+            });
+            this.ids = ids;
         }
     }
 })
