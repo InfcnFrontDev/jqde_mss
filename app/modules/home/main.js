@@ -7,6 +7,9 @@ var vmModule = new Vue({
         iconCls: ['fa-desktop', 'fa-list', 'fa-pencil-square-o', 'fa-list-alt', 'fa-calendar', 'fa-picture-o', 'fa-tag']
     },
     mounted: function () {
+
+        console.log(param.name);
+
         this.fetchData();
     },
     methods: {

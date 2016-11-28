@@ -102,7 +102,7 @@ var Tools = {
             type: "GET",
             url: url,
             dataType: 'html',
-            cache: true, // (warning: this will cause a timestamp and will call the request twice)
+            cache: false, // (warning: this will cause a timestamp and will call the request twice)
             beforeSend: function () {
                 container.html('<h1><i class="fa fa-cog fa-spin"></i> Loading...</h1>');
             },

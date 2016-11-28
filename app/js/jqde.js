@@ -24,7 +24,8 @@ var JqdeMods = {
                 dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
                     //
-                    if (data.success == false && data.message.indexOf('请重新登录') > -1) {
+
+                    if (data.success == false && data.message.indexOf('重新登录') > -1) {
                         JqdeBox.alert(data.message, function () {
                             location = './login.html';
                         });
@@ -32,6 +33,8 @@ var JqdeMods = {
                     resolve(data);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    console.log(false);
                     reject(XMLHttpRequest);
                 }
             });

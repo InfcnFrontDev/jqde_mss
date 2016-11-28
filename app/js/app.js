@@ -9,7 +9,6 @@ var vmApp = new Vue({
         userName: 'INFCN',
         menus: [],
         iconCls: ['fa-desktop', 'fa-list', 'fa-pencil-square-o', 'fa-list-alt', 'fa-calendar', 'fa-picture-o', 'fa-tag', 'fa-folder', 'fa-cogs'],
-
         modulePath: ''
     },
     mounted: function () {
@@ -86,25 +85,43 @@ var vmApp = new Vue({
             //get the url by removing the hash
             var url = location.hash.replace(/^#/, '');
 
+            param = {};
+
             // Do this if url exists (for page refresh, etc...)
             if (url) {
+                url = 'modules/' + url.replace(/^\//, '');
+                // console.log(url);
+
+                var urls = url.split('?');
+
+                if (urls.length > 1) {
+                    window.param = _.chain(urls[1].split('&'))
+                        .map(function (value) {
+                            return value.split('=');
+                        }).object().value();
+                    // console.log(param);
+                }
+
+                // parse url to jquery
+                Tools.loadURL(urls[0], $('#content'), function () {
+                    vmApp.drawBreadCrumb();
+                }, function () {
+                    vmApp.drawBreadCrumb();
+                });
+
+
+                var href = '/' + urls[0].split('/')[1] ;
+                // console.log(href);
+
                 // remove all active class
                 $('#nav li.active').removeClass("active");
                 $('#nav li.open').removeClass("open");
 
                 // match the url and add the active class
-                $('#nav li:has(a[href="' + url + '"])').addClass("active");
-                $('#nav li:has(a[href="' + url + '"])').parents('li').addClass("active").addClass("open");
-                $('#nav li:has(a[href="' + url + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
+                $('#nav li:has(a[href="' + href + '"])').addClass("active");
+                $('#nav li:has(a[href="' + href + '"])').parents('li').addClass("active").addClass("open");
+                $('#nav li:has(a[href="' + href + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
 
-                this.modulePath = 'modules/' + url;
-
-                // parse url to jquery
-                Tools.loadURL(this.modulePath + '/index.html', $('#content'), function () {
-                    vmApp.drawBreadCrumb();
-                }, function () {
-                    vmApp.drawBreadCrumb();
-                });
             } else {
                 //update hash
                 window.location.hash = $('#nav > li:first-child > a[href!="#"]').attr('href');
