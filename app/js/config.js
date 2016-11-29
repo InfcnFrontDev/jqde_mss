@@ -7,7 +7,7 @@ var Config = {
     devtools: false,
     silent: true,
 
-    apiPath: 'http://192.168.3.137:8080/mss-web',
+    apiPath: 'http://localhost:9085',
 
     // DataTable默认配置
     dataTable_defaultOptions: {

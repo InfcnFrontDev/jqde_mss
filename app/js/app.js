@@ -1,7 +1,3 @@
-Vue.config.debug = Config.debug;
-Vue.config.devtools = Config.devtools;
-Vue.config.silent = Config.silent;
-
 var vmApp = new Vue({
     el: '#vmApp',
     data: {
@@ -102,13 +98,6 @@ var vmApp = new Vue({
                     // console.log(param);
                 }
 
-                // parse url to jquery
-                Tools.loadURL(urls[0], $('#content'), function () {
-                    vmApp.drawBreadCrumb();
-                }, function () {
-                    vmApp.drawBreadCrumb();
-                });
-
 
                 var href = '/' + urls[0].split('/')[1] ;
                 // console.log(href);
@@ -121,6 +110,16 @@ var vmApp = new Vue({
                 $('#nav li:has(a[href="' + href + '"])').addClass("active");
                 $('#nav li:has(a[href="' + href + '"])').parents('li').addClass("active").addClass("open");
                 $('#nav li:has(a[href="' + href + '"])').parents('li').siblings().find('.submenu').slideUp('fast');
+
+
+                // parse url to jquery
+                Tools.loadURL(urls[0], $('#content'), function () {
+                    vmApp.drawBreadCrumb();
+                }, function () {
+                    vmApp.drawBreadCrumb();
+                });
+
+
 
             } else {
                 //update hash
